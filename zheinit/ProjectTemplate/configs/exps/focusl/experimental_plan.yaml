@@ -1,0 +1,2412 @@
+# 实验计划
+# 示例：
+# experiments:
+#   exp_1:
+#      config_name: focusl/faith_dial/t5/bow/bow
+#      hyper_params:
+#         proc_title: test
+
+# config_name：指定配置文件
+# hyper_params【可选】：指定超参数
+#
+# ❗️❗️❗️  注意！  ❗️❗️❗️
+# 1、实验计划中的变量字符串不可包含特殊字符、空格等，最好使用下划线或其他不会造成转义的字符
+# 2、实验计划中的config_name需要使用绝对路径，即从 configs/experiments 开始的路径
+# 3、实验计划中的config_name不需要包含文件后缀名
+# 4、实验计划中的 exp_1 可以随意命名，此字段会自动覆盖配置文件中的 comet_name 字段
+# 5、如不需要运行某个实验，可将某个实验计划注释掉
+
+experiments:
+
+  ###############################################
+  # 📍📍📍 Persona_chat 数据集
+  ###############################################
+  # TODO 3、预处理 persona_chat 数据集
+  # PC_baseline:
+  #   config_name: focusl/baseline
+  #   hyper_params:
+  #     memo: Persona_chat数据集,T5
+  #     proc_title: PC_baseline
+  #     # Personachat 数据集
+  #     dataset: persona_chat
+  #     dataset_split: revised
+  #     input_shape: p-h
+  #     target_shape: r
+  # lr: 1e-3
+
+  ###############################################
+  # 📍📍📍 WoW + Faithdial 数据集
+  ###############################################
+  # WOW_Faithdial_baseline:
+  #   config_name: focusl/baseline
+  #   hyper_params:
+  #       memo: WOW_Faithdial数据集,T5
+  #       proc_title: WOW_Faithdial_baseline
+  #       dataset: wow_faithdial # 影响数据集的存放和保存地址
+  #       dataset_version: no_segment # 使用哪个版本的数据集预处理
+  #       dataset_split: random
+
+  ###############################################
+  # 📍📍📍  WoW 数据集
+  ###############################################
+  T5_wow:
+    config_name: focusl/wow_baseline
+    hyper_params:
+      memo: Full-Data
+      stage: test
+#      ckpt_identifier: 2023-01-10-13-31-18-->T5_wow-->wow-->t5:t5-base
+
+#  T5_wow_unseen:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: Full-Data
+#      stage: test
+#      ckpt_identifier: 2023-01-10-13-31-29-->T5_wow_unseen-->wow-->t5:t5-base
+#
+#  CTRL_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: Full-Data
+#      stage: test
+#      ckpt_identifier: 2023-01-10-13-31-39-->CTRL_wow-->wow-->t5:t5-base
+#
+#  CTRL_unseen:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: Full-Data
+#      stage: test
+#      ckpt_identifier: 2023-01-10-13-31-50-->CTRL_wow_unseen-->wow-->t5:t5-base
+
+
+#
+#  T5_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: Full-Data
+
+#
+#  T5_half_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/2-Data
+#      dataset_consumption: 0.5
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#
+#  T5_quarter_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/4-Data
+#      dataset_consumption: 0.25
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#
+#  T5_min_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/8-Data
+#      dataset_consumption: 0.125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#
+#  T5_1_16_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/16-Data
+#      dataset_consumption: 0.0625
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#
+#  T5_1_32_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/32-Data
+#      dataset_consumption: 0.03125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+
+#
+#  T5_wow_unseen:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: Full-Data
+#      dataset_split: random
+#
+#  T5_half_data_wow_unseen:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/2-Data
+#      dataset_consumption: 0.5
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      dataset_split: random
+#
+#  T5_quarter_data_wow_unseen:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/4-Data
+#      dataset_consumption: 0.25
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      dataset_split: random
+#
+#  T5_min_data_wow_unseen:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/8-Data
+#      dataset_consumption: 0.125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      dataset_split: random
+#
+#  T5_1_16_data_wow_unseen:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/16-Data
+#      dataset_consumption: 0.0625
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      dataset_split: random
+#
+#  T5_1_32_data_wow_unseen:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/32-Data
+#      dataset_consumption: 0.03125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      dataset_split: random
+
+  #################### 📍📍📍 CTRL 在不同数据量下的效果 📍📍📍 #########################
+
+#  CTRL_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: Full-Data
+#      input_shape: c-k-h
+#
+#  CTRL_half_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/2-Data
+#      dataset_consumption: 0.5
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c-k-h
+#
+#  CTRL_quarter_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/4-Data
+#      dataset_consumption: 0.25
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c-k-h
+#
+#  CTRL_min_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/8-Data
+#      dataset_consumption: 0.125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c-k-h
+#
+#  CTRL_1_16_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/16-Data
+#      dataset_consumption: 0.0625
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c-k-h
+#
+#  CTRL_1_32_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/32-Data
+#      dataset_consumption: 0.03125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c-k-h
+
+
+#
+#
+#  CTRL_wow_unseen:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: Full-Data
+#      input_shape: c-k-h
+#      dataset_split: random
+#
+#  CTRL_half_data_wow_unseen:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/2-Data
+#      dataset_consumption: 0.5
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c-k-h
+#      dataset_split: random
+#
+#  CTRL_quarter_data_wow_unseen:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/4-Data
+#      dataset_consumption: 0.25
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c-k-h
+#      dataset_split: random
+#
+#  CTRL_min_data_wow_unseen:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/8-Data
+#      dataset_consumption: 0.125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c-k-h
+#      dataset_split: random
+#
+#  CTRL_1_16_data_wow_unseen:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/16-Data
+#      dataset_consumption: 0.0625
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c-k-h
+#      dataset_split: random
+#
+#  CTRL_1_32_data_wow_unseen:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/32-Data
+#      dataset_consumption: 0.03125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c-k-h
+#      dataset_split: random
+
+
+  #################### 📍📍📍 T5-ReCE 在不同数据量下的效果 📍📍📍 #########################
+
+#  T5_ReCE_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: Full-Data
+#      input_shape: k-h
+#      loss: rece_loss
+
+#  T5_ReCE_wow_liner:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: Full-Data
+#      input_shape: k-h
+#      loss: rece_loss
+#      use_pure_sim: True
+#
+#  T5_ReCE_wow_liner_unseen:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: Full-Data
+#      input_shape: k-h
+#      loss: rece_loss
+#      use_pure_sim: True
+#      dataset_split: random
+
+
+#
+#  T5_ReCE_half_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/2-Data
+#      dataset_consumption: 0.5
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: k-h
+#      loss: rece_loss
+
+#  T5_ReCE_quarter_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/4-Data
+#      dataset_consumption: 0.25
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: k-h
+#      loss: rece_loss
+#
+#  T5_ReCE_min_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/8-Data
+#      dataset_consumption: 0.125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: k-h
+#      loss: rece_loss
+#
+#  T5_ReCE_1_16_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/16-Data
+#      dataset_consumption: 0.0625
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: k-h
+#      loss: rece_loss
+#
+#  T5_ReCE_1_32_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/32-Data
+#      dataset_consumption: 0.03125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: k-h
+#      loss: rece_loss
+#
+#  T5_ReCE_wow_unseen:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: Full-Data
+#      input_shape: k-h
+#      loss: rece_loss
+#      dataset_split: random
+#
+#  T5_ReCE_half_data_wow_unseen:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/2-Data
+#      dataset_consumption: 0.5
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: k-h
+#      loss: rece_loss
+#      dataset_split: random
+#
+#  T5_ReCE_quarter_data_wow_unseen:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/4-Data
+#      dataset_consumption: 0.25
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: k-h
+#      loss: rece_loss
+#      dataset_split: random
+
+#  T5_ReCE_min_data_wow_unseen:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/8-Data
+#      dataset_consumption: 0.125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: k-h
+#      loss: rece_loss
+#      dataset_split: random
+
+#  T5_ReCE_1_16_data_wow_unseen:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/16-Data
+#      dataset_consumption: 0.0625
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: k-h
+#      loss: rece_loss
+#      dataset_split: random
+#
+#  T5_ReCE_1_32_data_wow_unseen:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/32-Data
+#      dataset_consumption: 0.031251
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: k-h
+#      loss: rece_loss
+#      dataset_split: random
+
+  #################### 📍📍📍 T5-InfoNCE 在不同数据量下的效果 📍📍📍 #########################
+
+#    T5-InfoNCE_token_wow:
+#      config_name: focusl/wow_baseline
+#      hyper_params:
+#        memo: Full-Data
+#        loss: lm_loss+infonce_loss_token
+#
+#    T5-InfoNCE_token_half_data_wow:
+#      config_name: focusl/wow_baseline
+#      hyper_params:
+#        memo: 1/2-Data
+#        dataset_consumption: 0.5
+#        warmup_ratio: 0.3
+#        val_steps: 1.0  # 默认为1.0
+#        scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#        loss: lm_loss+infonce_loss_token
+#
+#    T5-InfoNCE_token_quarter_data_wow:
+#      config_name: focusl/wow_baseline
+#      hyper_params:
+#        memo: 1/4-Data
+#        dataset_consumption: 0.25
+#        warmup_ratio: 0.3
+#        val_steps: 1.0  # 默认为1.0
+#        scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#        loss: lm_loss+infonce_loss_token
+#
+#    T5-InfoNCE_token_min_data_wow:
+#      config_name: focusl/wow_baseline
+#      hyper_params:
+#        memo: 1/8-Data
+#        dataset_consumption: 0.125
+#        warmup_ratio: 0.3
+#        val_steps: 1.0  # 默认为1.0
+#        scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#        loss: lm_loss+infonce_loss_token
+#
+#    T5-InfoNCE_sent_wow:
+#      config_name: focusl/wow_baseline
+#      hyper_params:
+#        memo: Full-Data
+#        loss: lm_loss+infonce_loss_sent
+#
+#    T5-InfoNCE_sent_half_data_wow:
+#      config_name: focusl/wow_baseline
+#      hyper_params:
+#        memo: 1/2-Data
+#        dataset_consumption: 0.5
+#        warmup_ratio: 0.3
+#        val_steps: 1.0  # 默认为1.0
+#        scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#        loss: lm_loss+infonce_loss_sent
+#
+#    T5-InfoNCE_sent_quarter_data_wow:
+#      config_name: focusl/wow_baseline
+#      hyper_params:
+#        memo: 1/4-Data
+#        dataset_consumption: 0.25
+#        warmup_ratio: 0.3
+#        val_steps: 1.0  # 默认为1.0
+#        scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#        loss: lm_loss+infonce_loss_sent
+#
+#    T5-InfoNCE_sent_min_data_wow:
+#      config_name: focusl/wow_baseline
+#      hyper_params:
+#        memo: 1/8-Data
+#        dataset_consumption: 0.125
+#        warmup_ratio: 0.3
+#        val_steps: 1.0  # 默认为1.0
+#        scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#        loss: lm_loss+infonce_loss_sent
+
+
+  #################### 📍📍📍 T5-Prompt 在不同数据量下的效果 📍📍📍 #########################
+#    T5-Prompt_wow:
+#      config_name: focusl/wow_baseline
+#      hyper_params:
+#        memo: Full-Data
+#        input_shape: c_prompt-k-h
+#
+#    T5-Prompt_half_data_wow:
+#      config_name: focusl/wow_baseline
+#      hyper_params:
+#        memo: 1/2-Data
+#        dataset_consumption: 0.5
+#        warmup_ratio: 0.3
+#        val_steps: 1.0  # 默认为1.0
+#        scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#        input_shape: c_prompt-k-h
+#
+#    T5-Prompt_quarter_data_wow:
+#      config_name: focusl/wow_baseline
+#      hyper_params:
+#        memo: 1/4-Data
+#        dataset_consumption: 0.25
+#        warmup_ratio: 0.3
+#        val_steps: 1.0  # 默认为1.0
+#        scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#        input_shape: c_prompt-k-h
+#
+#    T5-Prompt_min_data_wow:
+#      config_name: focusl/wow_baseline
+#      hyper_params:
+#        memo: 1/8-Data
+#        dataset_consumption: 0.125
+#        warmup_ratio: 0.3
+#        val_steps: 1.0  # 默认为1.0
+#        scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#        input_shape: c_prompt-k-h
+
+#  T5-Prompt_1_16_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/16-Data
+#      dataset_consumption: 0.0625
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#
+#  T5-Prompt_1_32_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/32-Data
+#      dataset_consumption: 0.03125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+
+#    T5-Prompt_wow_unseen:
+#      config_name: focusl/wow_baseline
+#      hyper_params:
+#        memo: Full-Data
+#        input_shape: c_prompt-k-h
+#        dataset_split: random
+#
+#    T5-Prompt_half_data_wow_unseen:
+#      config_name: focusl/wow_baseline
+#      hyper_params:
+#        memo: 1/2-Data
+#        dataset_consumption: 0.5
+#        warmup_ratio: 0.3
+#        val_steps: 1.0  # 默认为1.0
+#        scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#        input_shape: c_prompt-k-h
+#        dataset_split: random
+#
+#    T5-Prompt_quarter_data_wow_unseen:
+#      config_name: focusl/wow_baseline
+#      hyper_params:
+#        memo: 1/4-Data
+#        dataset_consumption: 0.25
+#        warmup_ratio: 0.3
+#        val_steps: 1.0  # 默认为1.0
+#        scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#        input_shape: c_prompt-k-h
+#        dataset_split: random
+#
+#    T5-Prompt_min_data_wow_unseen:
+#      config_name: focusl/wow_baseline
+#      hyper_params:
+#        memo: 1/8-Data
+#        dataset_consumption: 0.125
+#        warmup_ratio: 0.3
+#        val_steps: 1.0  # 默认为1.0
+#        scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#        input_shape: c_prompt-k-h
+#        dataset_split: random
+
+
+#  T5-Prompt_1_16_data_wow_unseen:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/16-Data
+#      dataset_consumption: 0.0625
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      dataset_split: random
+#
+#  T5-Prompt_1_32_data_wow_unseen:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/32-Data
+#      dataset_consumption: 0.03125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      dataset_split: random
+
+
+
+  #################### 📍📍📍 T5-Prompt_ReCE 在不同数据量下的效果 📍📍📍 #########################
+#    T5-Prompt_ReCE_wow:
+#      config_name: focusl/wow_baseline
+#      hyper_params:
+#        memo: Full-Data
+#        input_shape: c_prompt-k-h
+#        loss: rece_loss
+#
+#    T5-Prompt_ReCE_half_data_wow:
+#      config_name: focusl/wow_baseline
+#      hyper_params:
+#        memo: 1/2-Data
+#        dataset_consumption: 0.5
+#        warmup_ratio: 0.3
+#        val_steps: 1.0  # 默认为1.0
+#        scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#        input_shape: c_prompt-k-h
+#        loss: rece_loss
+#
+#    T5-Prompt_ReCE_quarter_data_wow:
+#      config_name: focusl/wow_baseline
+#      hyper_params:
+#        memo: 1/4-Data
+#        dataset_consumption: 0.25
+#        warmup_ratio: 0.3
+#        val_steps: 1.0  # 默认为1.0
+#        scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#        input_shape: c_prompt-k-h
+#        loss: rece_loss
+#
+#    T5-Prompt_ReCE_min_data_wow:
+#      config_name: focusl/wow_baseline
+#      hyper_params:
+#        memo: 1/8-Data
+#        dataset_consumption: 0.125
+#        warmup_ratio: 0.3
+#        val_steps: 1.0  # 默认为1.0
+#        scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#        input_shape: c_prompt-k-h
+#        loss: rece_loss
+
+#  T5-Prompt_ReCE_1_16_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/16-Data
+#      dataset_consumption: 0.0625
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: rece_loss
+#
+#  T5-Prompt_ReCE_1_32_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/32-Data
+#      dataset_consumption: 0.03125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: rece_loss
+
+
+#    T5-Prompt_ReCE_wow_unseen:
+#      config_name: focusl/wow_baseline
+#      hyper_params:
+#        memo: Full-Data
+#        input_shape: c_prompt-k-h
+#        loss: rece_loss
+#        dataset_split: random
+#
+#    T5-Prompt_ReCE_half_data_wow_unseen:
+#      config_name: focusl/wow_baseline
+#      hyper_params:
+#        memo: 1/2-Data
+#        dataset_consumption: 0.5
+#        warmup_ratio: 0.3
+#        val_steps: 1.0  # 默认为1.0
+#        scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#        input_shape: c_prompt-k-h
+#        loss: rece_loss
+#        dataset_split: random
+#
+#    T5-Prompt_ReCE_quarter_data_wow_unseen:
+#      config_name: focusl/wow_baseline
+#      hyper_params:
+#        memo: 1/4-Data
+#        dataset_consumption: 0.25
+#        warmup_ratio: 0.3
+#        val_steps: 1.0  # 默认为1.0
+#        scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#        input_shape: c_prompt-k-h
+#        loss: rece_loss
+#        dataset_split: random
+#
+#    T5-Prompt_ReCE_min_data_wow_unseen:
+#      config_name: focusl/wow_baseline
+#      hyper_params:
+#        memo: 1/8-Data
+#        dataset_consumption: 0.125
+#        warmup_ratio: 0.3
+#        val_steps: 1.0  # 默认为1.0
+#        scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#        input_shape: c_prompt-k-h
+#        loss: rece_loss
+#        dataset_split: random
+
+#  T5-Prompt_ReCE_1_16_data_wow_unseen:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/16-Data
+#      dataset_consumption: 0.0625
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: rece_loss
+#      dataset_split: random
+#
+#  T5-Prompt_ReCE_1_32_data_wow_unseen:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/32-Data
+#      dataset_consumption: 0.03125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: rece_loss
+#      dataset_split: random
+
+
+  #################### 📍📍📍 T5-Prompt_InfoNCE 在不同数据量下的效果 📍📍📍 #########################
+#  T5-Prompt_InfoNCE_sent_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: Full-Data
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+infonce_loss_sent
+#
+#  T5-Prompt_InfoNCE_sent_half_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/2-Data
+#      dataset_consumption: 0.5
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+infonce_loss_sent
+#
+#  T5-Prompt_InfoNCE_sent_quarter_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/4-Data
+#      dataset_consumption: 0.25
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+infonce_loss_sent
+#
+#  T5-Prompt_InfoNCE_sent_min_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/8-Data
+#      dataset_consumption: 0.125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+infonce_loss_sent
+#
+#  T5-Prompt_InfoNCE_token_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: Full-Data
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+infonce_loss_token
+#
+#  T5-Prompt_InfoNCE_token_half_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/2-Data
+#      dataset_consumption: 0.5
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+infonce_loss_token
+#
+#  T5-Prompt_InfoNCE_token_quarter_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/4-Data
+#      dataset_consumption: 0.25
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+infonce_loss_token
+#
+#  T5-Prompt_InfoNCE_token_min_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/8-Data
+#      dataset_consumption: 0.125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+infonce_loss_token
+
+
+  #################### 📍📍📍 T5-Prompt_ReCE_ReInfoNCE 在不同数据量下的效果 📍📍📍 #########################
+#  T5-Prompt_ReCE_ReInfoNCE_sent_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: Full-Data
+#      input_shape: c_prompt-k-h
+#      loss: rece_loss+reinfonce_loss_sent
+#
+#  T5-Prompt_ReCE_ReInfoNCE_sent_half_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#        memo: 1/2-Data
+#        dataset_consumption: 0.5
+#        warmup_ratio: 0.3
+#        val_steps: 1.0  # 默认为1.0
+#        scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#        input_shape: c_prompt-k-h
+#        loss: rece_loss+reinfonce_loss_sent
+#
+#  T5-Prompt_ReCE_ReInfoNCE_sent_quarter_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#        memo: 1/4-Data
+#        dataset_consumption: 0.25
+#        warmup_ratio: 0.3
+#        val_steps: 1.0  # 默认为1.0
+#        scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#        input_shape: c_prompt-k-h
+#        loss: rece_loss+reinfonce_loss_sent
+#
+#  T5-Prompt_ReCE_ReInfoNCE_sent_min_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#        memo: 1/8-Data
+#        dataset_consumption: 0.125
+#        warmup_ratio: 0.3
+#        val_steps: 1.0  # 默认为1.0
+#        scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#        input_shape: c_prompt-k-h
+#        loss: rece_loss+reinfonce_loss_sent
+#
+#  T5-Prompt_ReCE_ReInfoNCE_token_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: Full-Data
+#      input_shape: c_prompt-k-h
+#      loss: rece_loss+reinfonce_loss_token
+#
+#  T5-Prompt_ReCE_ReInfoNCE_token_half_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#        memo: 1/2-Data
+#        dataset_consumption: 0.5
+#        warmup_ratio: 0.3
+#        val_steps: 1.0  # 默认为1.0
+#        scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#        input_shape: c_prompt-k-h
+#        loss: rece_loss+reinfonce_loss_token
+#
+#  T5-Prompt_ReCE_ReInfoNCE_token_quarter_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#        memo: 1/4-Data
+#        dataset_consumption: 0.25
+#        warmup_ratio: 0.3
+#        val_steps: 1.0  # 默认为1.0
+#        scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#        input_shape: c_prompt-k-h
+#        loss: rece_loss+reinfonce_loss_token
+#
+#  T5-Prompt_ReCE_ReInfoNCE_token_min_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#        memo: 1/8-Data
+#        dataset_consumption: 0.125
+#        warmup_ratio: 0.3
+#        val_steps: 1.0  # 默认为1.0
+#        scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#        input_shape: c_prompt-k-h
+#        loss: rece_loss+reinfonce_loss_token
+
+
+  #################### 📍📍📍 T5-ReInfoNCE 在不同数据量下的效果 📍📍📍 #########################
+#  T5-ReInfoNCE_token_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: Full-Data
+#      loss: lm_loss+reinfonce_loss_token
+#
+#  T5-ReInfoNCE_token_half_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/2-Data
+#      dataset_consumption: 0.5
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      loss: lm_loss+reinfonce_loss_token
+#
+#  T5-ReInfoNCE_token_quarter_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/4-Data
+#      dataset_consumption: 0.25
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      loss: lm_loss+reinfonce_loss_token
+#
+#  T5-ReInfoNCE_token_min_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/8-Data
+#      dataset_consumption: 0.125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      loss: lm_loss+reinfonce_loss_token
+#
+#  T5-ReInfoNCE_sent_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: Full-Data
+#      loss: lm_loss+reinfonce_loss_sent
+#
+#  T5-ReInfoNCE_sent_half_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/2-Data
+#      dataset_consumption: 0.5
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      loss: lm_loss+reinfonce_loss_sent
+#
+#  T5-ReInfoNCE_sent_quarter_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/4-Data
+#      dataset_consumption: 0.25
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      loss: lm_loss+reinfonce_loss_sent
+#
+#  T5-ReInfoNCE_sent_min_data_wow:
+#    config_name: focusl/wow_baseline
+#    hyper_params:
+#      memo: 1/8-Data
+#      dataset_consumption: 0.125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      loss: lm_loss+reinfonce_loss_sent
+
+  ###############################################
+  # 📍📍📍 FaithDial 数据集
+  ###############################################
+
+  #################### 📍📍📍 T5 在不同数据量下的效果 📍📍📍 #########################
+#  T5:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+
+
+
+#  T5_1p:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      max_epochs: 1
+#
+#  T5_2p:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      max_epochs: 2
+#
+#  T5_3p:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      max_epochs: 3
+#
+#  T5_4p:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      max_epochs: 4
+#
+#  T5_5p:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      max_epochs: 5
+#
+#
+#  T5_6p:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      max_epochs: 6
+#
+#
+#  T5_7p:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      max_epochs: 7
+#
+#
+#  T5_8p:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      max_epochs: 8
+#
+#  T5_9p:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      max_epochs: 9
+#
+#  T5_10p:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      max_epochs: 10
+
+
+
+
+#  T5_seen:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data,beam=1
+#      dataset_split: topic
+#
+#
+#  T5_unseen:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data,beam=1
+#      dataset_split: random
+
+
+#  T5_half_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/2-Data
+#      dataset_consumption: 0.5
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#
+#  T5_quarter_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/4-Data
+#      dataset_consumption: 0.25
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#
+#
+#  T5_min_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/8-Data
+#      dataset_consumption: 0.125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#
+#
+#  T5_1_16_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/16-Data
+#      dataset_consumption: 0.0625
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#
+#  T5_1_32_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/32-Data
+#      dataset_consumption: 0.03125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+
+  #################### 📍📍📍 CTRL 在不同数据量下的效果 📍📍📍 #########################
+
+#  CTRL:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      input_shape: c-k-h
+
+#  CTRL_seen:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      input_shape: c-k-h
+#      dataset_split: topic
+#
+#  CTRL_unseen:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      input_shape: c-k-h
+#      dataset_split: random
+
+#
+#  CTRL_half_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/2-Data
+#      dataset_consumption: 0.5
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c-k-h
+#
+#  CTRL_quarter_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/4-Data
+#      dataset_consumption: 0.25
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c-k-h
+#
+#  CTRL_min_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/8-Data
+#      dataset_consumption: 0.125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c-k-h
+#
+#  CTRL_1_16_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/16-Data
+#      dataset_consumption: 0.0625
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c-k-h
+#
+#  CTRL_1_32_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/32-Data
+#      dataset_consumption: 0.03125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c-k-h
+
+  #################### 📍📍📍 CTRL-ReCE 在不同数据量下的效果 📍📍📍 #########################
+#  CTRL-ReCE:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      input_shape: c-k-h
+#      loss: rece_loss
+#
+#  CTRL-ReCE_half_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/2-Data
+#      dataset_consumption: 0.5
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c-k-h
+#      loss: rece_loss
+#
+#  CTRL-ReCE_quarter_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/4-Data
+#      dataset_consumption: 0.25
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c-k-h
+#      loss: rece_loss
+#
+#  CTRL-ReCE_min_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/8-Data
+#      dataset_consumption: 0.125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c-k-h
+#      loss: rece_loss
+#
+#  CTRL-ReCE_1_16_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/16-Data
+#      dataset_consumption: 0.0625
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c-k-h
+#      loss: rece_loss
+#
+#  CTRL-ReCE_1_32_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/32-Data
+#      dataset_consumption: 0.03125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c-k-h
+#      loss: rece_loss
+
+  #################### 📍📍📍 T5-InfoNCE 在不同数据量下的效果 📍📍📍 #########################
+
+#  T5-InfoNCE_token:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      loss: lm_loss+infonce_loss_token
+#
+#  T5-InfoNCE_token_half_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/2-Data
+#      dataset_consumption: 0.5
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      loss: lm_loss+infonce_loss_token
+#
+#  T5-InfoNCE_token_quarter_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/4-Data
+#      dataset_consumption: 0.25
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      loss: lm_loss+infonce_loss_token
+#
+#  T5-InfoNCE_token_min_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/8-Data
+#      dataset_consumption: 0.125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      loss: lm_loss+infonce_loss_token
+#
+#  T5-InfoNCE_sent:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      loss: lm_loss+infonce_loss_sent
+#
+#  T5-InfoNCE_sent_half_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/2-Data
+#      dataset_consumption: 0.5
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      loss: lm_loss+infonce_loss_sent
+#
+#  T5-InfoNCE_sent_quarter_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/4-Data
+#      dataset_consumption: 0.25
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      loss: lm_loss+infonce_loss_sent
+#
+#  T5-InfoNCE_sent_min_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/8-Data
+#      dataset_consumption: 0.125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      loss: lm_loss+infonce_loss_sent
+
+
+  #################### 📍📍📍 T5-Prompt 在不同数据量下的效果 📍📍📍 #########################
+#  T5-Prompt:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      input_shape: c_prompt-k-h
+
+#  T5-Prompt_seen:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data,beam=1
+#      input_shape: c_prompt-k-h
+#      dataset_split: topic
+#
+#  T5-Prompt_unseen:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data,beam=1
+#      input_shape: c_prompt-k-h
+#      dataset_split: random
+
+##
+#  T5-Prompt_half_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/2-Data
+#      dataset_consumption: 0.5
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#
+#  T5-Prompt_quarter_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/4-Data
+#      dataset_consumption: 0.25
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#
+#  T5-Prompt_1_16_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/16-Data
+#      dataset_consumption: 0.0625
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#
+#  T5-Prompt_1_32_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/32-Data
+#      dataset_consumption: 0.03125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+
+  #################### 📍📍📍 T5-Prompt_ReCE 在不同数据量下的效果 📍📍📍 #########################
+
+#  T5-Prompt_ReCE:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      input_shape: c_prompt-k-h
+#      loss: rece_loss
+#      dataset_version: base_ctrl
+
+#  T5-Prompt_ReCE_seen:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data,beam=1
+#      input_shape: c_prompt-k-h
+#      loss: rece_loss
+#      dataset_split: topic
+#
+#
+#  T5-Prompt_ReCE_unseen:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data,beam=1
+#      input_shape: c_prompt-k-h
+#      loss: rece_loss
+#      dataset_split: random
+
+#
+#
+#  T5-Prompt_ReCE_pure_sim:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data,不使用 sim 转换函数,beam=1
+#      input_shape: c_prompt-k-h
+#      loss: rece_loss
+#      use_pure_sim: True
+#
+#  T5-Prompt_ReCE_half_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/2-Data,beam=1
+#      dataset_consumption: 0.5
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: rece_loss
+###
+#  T5-Prompt_ReCE_quarter_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/4-Data,beam=1
+#      dataset_consumption: 0.25
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: rece_loss
+#
+#  T5-Prompt_ReCE_min_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/8-Data
+#      dataset_consumption: 0.125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: rece_loss
+#
+#  T5-Prompt_ReCE_1_16_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/16-Data
+#      dataset_consumption: 0.0625
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: rece_loss
+#
+#  T5-Prompt_ReCE_1_32_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/32-Data
+#      dataset_consumption: 0.03125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: rece_loss
+
+
+  #################### 📍📍📍 T5-Prompt_ReInfoNCE 在不同数据量下的效果 📍📍📍 #########################
+#  T5-Prompt_ReInfoNCE_sent:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+reinfonce_loss_sent
+#
+#  T5-Prompt_ReInfoNCE_sent_half_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/2-Data
+#      dataset_consumption: 0.5
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+reinfonce_loss_sent
+#
+#  T5-Prompt_ReInfoNCE_sent_quarter_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/4-Data
+#      dataset_consumption: 0.25
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+reinfonce_loss_sent
+#
+#  T5-Prompt_ReInfoNCE_sent_min_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/8-Data
+#      dataset_consumption: 0.125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+reinfonce_loss_sent
+#
+#  T5-Prompt_ReInfoNCE_sent_1_16_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/16-Data
+#      dataset_consumption: 0.0625
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+reinfonce_loss_sent
+#
+#  T5-Prompt_ReInfoNCE_sent_1_32_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/32-Data
+#      dataset_consumption: 0.03125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+reinfonce_loss_sent
+
+
+
+#
+#  T5-Prompt_ReInfoNCE_token:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+reinfonce_loss_token
+#
+#  T5-Prompt_ReInfoNCE_token_half_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/2-Data
+#      dataset_consumption: 0.5
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+reinfonce_loss_token
+#
+#  T5-Prompt_ReInfoNCE_token_quarter_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/4-Data
+#      dataset_consumption: 0.25
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+reinfonce_loss_token
+#
+#  T5-Prompt_ReInfoNCE_token_min_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/8-Data
+#      dataset_consumption: 0.125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+reinfonce_loss_token
+
+
+  #################### 📍📍📍 T5-Prompt_InfoNCE 在不同数据量下的效果 📍📍📍 #########################
+#  T5-Prompt_InfoNCE_sent:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+infonce_loss_sent
+#
+#  T5-Prompt_InfoNCE_sent_half_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/2-Data
+#      dataset_consumption: 0.5
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+infonce_loss_sent
+#
+#  T5-Prompt_InfoNCE_sent_quarter_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/4-Data
+#      dataset_consumption: 0.25
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+infonce_loss_sent
+#
+#  T5-Prompt_InfoNCE_sent_min_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/8-Data
+#      dataset_consumption: 0.125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+infonce_loss_sent
+#
+#  T5-Prompt_InfoNCE_token:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+infonce_loss_token
+#
+#  T5-Prompt_InfoNCE_token_half_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/2-Data
+#      dataset_consumption: 0.5
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+infonce_loss_token
+#
+#  T5-Prompt_InfoNCE_token_quarter_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/4-Data
+#      dataset_consumption: 0.25
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+infonce_loss_token
+#
+#  T5-Prompt_InfoNCE_token_min_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/8-Data
+#      dataset_consumption: 0.125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+infonce_loss_token
+  #################### 📍📍📍 T5-Prompt_InfoNCE 在不同数据量下的效果 📍📍📍 #########################
+#  T5-Prompt_ReInfoNCE_sent:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+reinfonce_loss_sent
+#
+#  T5-Prompt_ReInfoNCE_sent_half_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/2-Data
+#      dataset_consumption: 0.5
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+reinfonce_loss_sent
+#
+#  T5-Prompt_ReInfoNCE_sent_quarter_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/4-Data
+#      dataset_consumption: 0.25
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+reinfonce_loss_sent
+#
+#  T5-Prompt_ReInfoNCE_sent_min_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/8-Data
+#      dataset_consumption: 0.125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+reinfonce_loss_sent
+#
+#  T5-Prompt_ReInfoNCE_token:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+reinfonce_loss_token
+#
+#  T5-Prompt_ReInfoNCE_token_half_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/2-Data
+#      dataset_consumption: 0.5
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+reinfonce_loss_token
+#
+#  T5-Prompt_ReInfoNCE_token_quarter_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/4-Data
+#      dataset_consumption: 0.25
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+reinfonce_loss_token
+#
+#  T5-Prompt_ReInfoNCE_token_min_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/8-Data
+#      dataset_consumption: 0.125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: lm_loss+reinfonce_loss_token
+
+
+  #################### 📍📍📍 T5-ReCE_ReInfoNCE 在不同数据量下的效果 📍📍📍 #########################
+
+#  T5-ReCE_ReInfoNCE_sent:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: FULL-Data
+#      input_shape: k-h
+#      loss: rece_loss+reinfonce_loss_sent
+#
+#  T5-ReCE_ReInfoNCE_sent_half_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/2-Data
+#      dataset_consumption: 0.5
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: k-h
+#      loss: rece_loss+reinfonce_loss_sent
+#
+#  T5-ReCE_ReInfoNCE_sent_quarter_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/4-Data
+#      dataset_consumption: 0.25
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: k-h
+#      loss: rece_loss+reinfonce_loss_sent
+#
+#  T5-ReCE_ReInfoNCE_sent_min_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/8-Data
+#      dataset_consumption: 0.125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: k-h
+#      loss: rece_loss+reinfonce_loss_sent
+#
+#  T5-ReCE_ReInfoNCE_sent_1_16_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/16-Data
+#      dataset_consumption: 0.0625
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: k-h
+#      loss: rece_loss+reinfonce_loss_sent
+#
+#  T5-ReCE_ReInfoNCE_sent_1_32_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/32-Data
+#      dataset_consumption: 0.03125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: k-h
+#      loss: rece_loss+reinfonce_loss_sent
+
+
+
+#  T5-ReCE_ReInfoNCE_token_quarter_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/4-Data
+#      dataset_consumption: 0.25
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: k-h
+#      loss: rece_loss+reinfonce_loss_token
+#
+#  T5-ReCE_ReInfoNCE_token_1_16_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/16-Data
+#      dataset_consumption: 0.0625
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: k-h
+#      loss: rece_loss+reinfonce_loss_token
+#
+#  T5-ReCE_ReInfoNCE_token_1_32_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/32-Data
+#      dataset_consumption: 0.03125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: k-h
+#      loss: rece_loss+reinfonce_loss_token
+
+  #################### 📍📍📍 T5-Prompt_ReCE_ReInfoNCE 在不同数据量下的效果 📍📍📍 #########################
+#  T5-Prompt_ReCE_ReInfoNCE_sent:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      input_shape: c_prompt-k-h
+#      loss: rece_loss+reinfonce_loss_sent
+#
+#  T5-Prompt_ReCE_ReInfoNCE_sent_half_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#        memo: 1/2-Data
+#        dataset_consumption: 0.5
+#        warmup_ratio: 0.3
+#        val_steps: 1.0  # 默认为1.0
+#        scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#        input_shape: c_prompt-k-h
+#        loss: rece_loss+reinfonce_loss_sent
+#
+#  T5-Prompt_ReCE_ReInfoNCE_sent_quarter_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#        memo: 1/4-Data
+#        dataset_consumption: 0.25
+#        warmup_ratio: 0.3
+#        val_steps: 1.0  # 默认为1.0
+#        scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#        input_shape: c_prompt-k-h
+#        loss: rece_loss+reinfonce_loss_sent
+#
+#  T5-Prompt_ReCE_ReInfoNCE_sent_min_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#        memo: 1/8-Data
+#        dataset_consumption: 0.125
+#        warmup_ratio: 0.3
+#        val_steps: 1.0  # 默认为1.0
+#        scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#        input_shape: c_prompt-k-h
+#        loss: rece_loss+reinfonce_loss_sent
+#
+#  T5-Prompt_ReCE_ReInfoNCE_sent_1_16_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/16-Data
+#      dataset_consumption: 0.0625
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: rece_loss+reinfonce_loss_sent
+#
+#  T5-Prompt_ReCE_ReInfoNCE_sent_1_32_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/32-Data
+#      dataset_consumption: 0.03125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: rece_loss+reinfonce_loss_sent
+
+#  T5-Prompt_ReCE_ReInfoNCE_token:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      input_shape: c_prompt-k-h
+#      loss: rece_loss+reinfonce_loss_token
+
+#  T5-Prompt_ReCE_ReInfoNCE_token_half_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#        memo: 1/2-Data
+#        dataset_consumption: 0.5
+#        warmup_ratio: 0.3
+#        val_steps: 1.0  # 默认为1.0
+#        scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#        input_shape: c_prompt-k-h
+#        loss: rece_loss+reinfonce_loss_token
+
+#  T5-Prompt_ReCE_ReInfoNCE_token_quarter_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#        memo: 1/4-Data
+#        dataset_consumption: 0.25
+#        warmup_ratio: 0.3
+#        val_steps: 1.0  # 默认为1.0
+#        scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#        input_shape: c_prompt-k-h
+#        loss: rece_loss+reinfonce_loss_token
+#
+#
+#  T5-Prompt_ReCE_ReInfoNCE_token_quarter_data_unseen:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/4-Data
+#      dataset_consumption: 0.25
+#      warmup_ratio: 0.3
+#      dataset_split: random
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: rece_loss+reinfonce_loss_token
+#
+#  T5-Prompt_ReCE_ReInfoNCE_token_quarter_data_seen:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/4-Data
+#      dataset_consumption: 0.25
+#      warmup_ratio: 0.3
+#      dataset_split: topic
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      input_shape: c_prompt-k-h
+#      loss: rece_loss+reinfonce_loss_token
+
+#  T5-Prompt_ReCE_ReInfoNCE_token_min_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#        memo: 1/8-Data
+#        dataset_consumption: 0.125
+#        warmup_ratio: 0.3
+#        val_steps: 1.0  # 默认为1.0
+#        scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#        input_shape: c_prompt-k-h
+#        loss: rece_loss+reinfonce_loss_token
+
+
+  #################### 📍📍📍 T5-ReCE 在不同数据量下的效果 📍📍📍 #########################
+#  T5-ReCE_full_training_liner:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data,10epoch,加 1 再加 0.1
+#      loss: rece_loss
+#      max_epochs: 10
+#      use_pure_sim: True
+
+#  T5-ReCE_full_training_cons:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data,常数
+#      loss: rece_loss
+#      use_constant_attn: True
+#
+#  T5-ReCE_liner:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data,线性
+#      loss: rece_loss
+#      use_pure_sim: True
+#
+#  T5-ReCE_1p:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      loss: rece_loss
+#      max_epochs: 1
+#
+#  T5-ReCE_2p:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      loss: rece_loss
+#      max_epochs: 2
+#
+#  T5-ReCE_3p:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      loss: rece_loss
+#      max_epochs: 3
+#
+#  T5-ReCE_4p:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      loss: rece_loss
+#      max_epochs: 4
+#
+#  T5-ReCE_5p:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      loss: rece_loss
+#      max_epochs: 5
+#
+#
+#  T5-ReCE_6p:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      loss: rece_loss
+#      max_epochs: 6
+#
+#  T5-ReCE_7p:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      loss: rece_loss
+#      max_epochs: 7
+#
+#
+#  T5-ReCE_8p:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      loss: rece_loss
+#      max_epochs: 8
+#
+#  T5-ReCE_9p:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      loss: rece_loss
+#      max_epochs: 9
+#
+#  T5-ReCE-test:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      loss: rece_loss
+#      stage: test
+
+# lamda 消融实验
+#  T5-ReCE_lamda001:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data, lamda=0.01
+#      loss: rece_loss
+#      lamda: 0.01
+#      max_epochs: 10
+#
+#  T5-ReCE_lamda040:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data, lamda=0.4
+#      loss: rece_loss
+#      lamda: 0.4
+#      max_epochs: 10
+#
+#
+#
+#  T5-ReCE_lamda005:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data, lamda=0.05
+#      loss: rece_loss
+#      lamda: 0.05
+#
+#  T5-ReCE_lamda_010:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data, lamda=0.1
+#      loss: rece_loss
+#
+#  T5-ReCE_lamda_020:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data, lamda=0.2
+#      loss: rece_loss
+#      lamda: 0.2
+#
+#  T5-ReCE_lamda_040:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data, lamda=0.4
+#      loss: rece_loss
+#      lamda: 0.4
+#
+#  T5-ReCE_lamda_070:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data, lamda=0.7
+#      loss: rece_loss
+#      lamda: 0.7
+
+#  T5-ReCE_half_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/2-Data
+#      dataset_consumption: 0.5
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      loss: rece_loss
+
+
+#  T5-ReCE_quarter_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/4-Data
+#      dataset_consumption: 0.25
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      loss: rece_loss
+#
+#  T5-ReCE_min_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/8-Data
+#      dataset_consumption: 0.125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      loss: rece_loss
+
+#  T5-ReCE_min_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/8-Data
+#      dataset_consumption: 0.125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      loss: rece_loss
+#      max_epochs: 1
+#      save_total_limit: 1
+#
+#  T5_min_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/8-Data
+#      dataset_consumption: 0.125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      loss: lm_loss
+#      max_epochs: 1
+#      save_total_limit: 1
+
+
+
+#
+#  T5-ReCE_1_16_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/16-Data
+#      dataset_consumption: 0.0625
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      loss: rece_loss
+#
+#  T5-ReCE_1_32_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/32-Data
+#      dataset_consumption: 0.03125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      loss: rece_loss
+
+
+  #################### 📍📍📍 T5-ReInfoNCE 在不同数据量下的效果 📍📍📍 #########################
+#  T5-ReInfoNCE_token:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      loss: lm_loss+reinfonce_loss_token
+#
+#  T5-ReInfoNCE_token_half_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/2-Data
+#      dataset_consumption: 0.5
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      loss: lm_loss+reinfonce_loss_token
+#
+#  T5-ReInfoNCE_token_quarter_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/4-Data
+#      dataset_consumption: 0.25
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      loss: lm_loss+reinfonce_loss_token
+#
+#  T5-ReInfoNCE_token_min_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/8-Data
+#      dataset_consumption: 0.125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      loss: lm_loss+reinfonce_loss_token
+
+#  T5-ReInfoNCE_sent:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: Full-Data
+#      loss: lm_loss+reinfonce_loss_sent
+#
+#  T5-ReInfoNCE_sent_half_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/2-Data
+#      dataset_consumption: 0.5
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      loss: lm_loss+reinfonce_loss_sent
+#
+#  T5-ReInfoNCE_sent_quarter_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/4-Data
+#      dataset_consumption: 0.25
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      loss: lm_loss+reinfonce_loss_sent
+
+#  T5-ReInfoNCE_sent_min_data:
+#    config_name: focusl/baseline
+#    hyper_params:
+#      memo: 1/8-Data
+#      dataset_consumption: 0.125
+#      warmup_ratio: 0.3
+#      val_steps: 1.0  # 默认为1.0
+#      scheduler: constant  # linear, constant, cosine， cosine_w_restarts， polynomial
+#      loss: lm_loss+reinfonce_loss_sent
+
+  #################### 📍📍📍 知识感知 📍📍📍 #########################
+# 最好
+#  know_copy_baseline_nce:
+#    config_name: focusl/know_aware_baseline
+#    hyper_params:
+#      memo: 一半数据集
+#
+#  know_copy_baseline_full_data_nce_prompt:
+#    config_name: focusl/know_aware_baseline
+#    hyper_params:
+#      memo: 完整数据集
+#      input_shape:  c_prompt-k-h
+#      dataset_consumption: 1.0
+
+
+#  know_copy_baseline_full_data_nce_whole_know:
+#    config_name: focusl/know_aware_baseline
+#    hyper_params:
+#      memo: 完整数据集
+#      input_shape:  k-h
+#      dataset_consumption: 1.0
+#      add_whole_know_seg: True
+#
+#  know_copy_baseline_full_data_nce_only_seg:
+#    config_name: focusl/know_aware_baseline
+#    hyper_params:
+#      memo: 完整数据集
+#      input_shape: s-h
+#      dataset_consumption: 1.0
+#      add_whole_know_seg: False
+
+
+#  know_copy_baseline_full_data_nce:
+#    config_name: focusl/know_aware_baseline
+#    hyper_params:
+#      memo: 完整数据集
+#      input_shape: k-h
+#      dataset_consumption: 1.0
+
+
+#
+
+#  know_copy_baseline_nce_filter_wow_seen_full:
+#    config_name: focusl/know_aware_baseline
+#    hyper_params:
+#      memo: 完整数据集,过滤 seg
+#      use_ground_filter: True
+#      dataset: wow
+#      dataset_split: topic
+#      dataset_consumption: 1.0
+
+#  know_copy_baseline_nce_filter_wow_seen:
+#    config_name: focusl/know_aware_baseline
+#    hyper_params:
+#      memo: 一半数据集,过滤 seg
+#      use_ground_filter: True
+#      dataset: wow
+#      dataset_split: topic
+#
+#  know_copy_baseline_nce_filter_wow_unseen:
+#    config_name: focusl/know_aware_baseline
+#    hyper_params:
+#      memo: 一半数据集,过滤 seg
+#      use_ground_filter: True
+#      dataset: wow
+#      dataset_split: random
+
+#
+#  know_cat_baseline_nce:
+#    config_name: focusl/know_aware_baseline
+#    hyper_params:
+#      memo: 一半数据集,输入拼接 seg，不使用 copy
+#      input_shape: s-h
+#      use_ground_filter: True
+#      use_know_aware: False
+
+
+
+

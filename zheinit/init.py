@@ -1,5 +1,7 @@
 import os
 from zheinit.utils import show_available_version, run_cmd, echo, get_cmd_output
+
+
 def init():
     if "bash" not in get_cmd_output("echo $SHELL"):
         if "bash" not in get_cmd_output("cat /etc/shells"):
@@ -49,6 +51,7 @@ def init():
         echo("3、安装 ranger 并自动配置", "blue")
         echo("4、创建 Conda  Pytorch 环境", "blue")
         echo("5、生成公钥", "blue")
+        echo("6、生成 zhei 项目模板", "blue")
         echo("0、退出", "blue")
         echo(" ", "blue")
         echo("请输入操作序号：", "yellow")
@@ -124,6 +127,12 @@ def init():
                 "cd ~/.ssh",
                 "ssh-keygen -t rsa",
                 "cat id_rsa.pub"
+            ])
+            
+        elif step == "6":
+            target_path = input("请输入项目路径（包含新的项目文件夹名），默认为 ~/code/zhei_project：")
+            run_cmd([
+                "cp -r {}/ProjectTemplate {}".format(pkg_current_path, target_path),        
             ])
             
         elif step == "0":

@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='zheinit',
-    version='0.0.73',
+    version='0.0.8',
     author='deng1fan',
     author_email='dengyifan@iie.ac.cn',
     url='https://github.com/deng1fan',
@@ -24,7 +24,7 @@ setup(
     entry_points = {
         'console_scripts' : [
             # 这一行是安装到命令行运行的关键
-            'init = zheinit.env:init'
+            'ini = zheinit.init:init'
         ]
     }
 )
