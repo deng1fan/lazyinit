@@ -1,0 +1,2 @@
+# ranger
+ranger config
