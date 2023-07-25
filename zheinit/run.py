@@ -143,4 +143,4 @@ def run():
     
     echo("\n所有实验均已启动！您可以在下方输入 tmux ls 查看实验运行情况。", "green")
     
-run()
+# run()
