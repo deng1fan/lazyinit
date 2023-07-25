@@ -1,18 +1,11 @@
 # @package _global_
 
-# Section 关于GPU、CPU的设置
-# use_gpu: False
-# visible_cuda:
-#   - 7
-
 # Section 关于实验的标记
-# logger: comet  # 如果不想上传可以为空，默认为空
-logger_project: focusl
+comet_project: focusl
 comet_name: t5_baseline # 对本次实验的简短描述
 memo: FaithDial数据集，T5 # 对本次实验的详细描述，可以用来记录本次实验的具体细节和改动
 proc_title: ${comet_name} # 修改后的进程名
 
-# Section 关于数据、模型的保存和加载
 # `````````````````````````模型加载相关`````````````````````````````
 # fast_run: False  # 快速运行整个训练和测试过程，便于查找bug
 
