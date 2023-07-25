@@ -5,11 +5,11 @@ from zheinit.utils import show_available_version, run_cmd, echo, get_cmd_output
 def init():
     if "bash" not in get_cmd_output("echo $SHELL"):
         if "bash" not in get_cmd_output("cat /etc/shells"):
-            print("未找到 bash 环境，请先安装 bash 环境！")
+            echo("未找到 bash 环境，请先安装 bash 环境！", "red")
         else:        
-            print("请在 bash 环境下运行本工具！")
-        print("您可以通过以下命令查看所支持的 Shell 类型：\ncat /etc/shells")
-        print("您可以通过以下命令切换 Shell 类型：\nchsh -s /bin/bash")
+            echo("请在 bash 环境下运行本工具！")
+        echo("您可以通过以下命令查看所支持的 Shell 类型：\ncat /etc/shells", "red")
+        echo("您可以通过以下命令切换 Shell 类型：\nchsh -s /bin/bash", "red")
         exit()
 
     pkg_current_path = os.path.dirname(os.path.abspath(__file__))
@@ -53,7 +53,7 @@ def init():
     step = "-1"
     while step != "0":
         if step != "-1":
-            echo("是否继续配置？（y/n）", "yellow")
+            echo("\n是否继续配置？（y/n）", "yellow")
             conti = input()
             if conti != "y":
                 break
@@ -66,7 +66,7 @@ def init():
         echo("6、生成 zhei 项目模板", "blue")
         echo("0、退出", "blue")
         echo(" ", "blue")
-        echo("请输入操作序号：", "yellow")
+        echo("请在下方输入操作序号：", "yellow")
         step = input()
         if step == "1":
             # ---------------------------------------------------------------------------- #
@@ -104,8 +104,10 @@ def init():
             # ---------------------------------------------------------------------------- #
             #                         创建 zhei 环境                                     
             # ---------------------------------------------------------------------------- #
-            python_version = input("请输入 Python 版本号，默认为 3.9：")
-            env_name = input("请输入环境名称，将会自动安装 zhei 包，默认名称为 zhei：")
+            echo("即将创建 zhei 环境，请在下方输入 Python 版本号，默认为 3.9：", "yellow")
+            python_version = input()
+            echo("即将创建 zhei 环境，请在下方输入环境名称，将会自动安装 zhei 包，默认名称为 zhei：", "yellow")
+            env_name = input()
             zhei = [
                 "conda create -n {} python={}".format(env_name, python_version),
                 "conda activate {}".format(env_name),
@@ -113,22 +115,23 @@ def init():
             ]
             run_cmd(zhei)
 
-            cuda_version = input("请输入 CUDA 版本号：")
+            echo("即将安装 Pytorch，请选择 CUDA 版本号，默认为 11.8：", "yellow")
+            cuda_version = input()
             torch_url, torchvision_url, torchaudio_url = show_available_version(cuda_version, python_version)
 
-            print("即将从以下链接安装 torch：\n {}".format(torch_url))
+            echo("即将从以下链接安装 torch：\n {}".format(torch_url))
             torch_install = [
                 "pip install {}".format(torch_url),
             ]   
             run_cmd(torch_install)
 
-            print("即将从以下链接安装 torchvision：\n {}".format(torchvision_url))  
+            echo("即将从以下链接安装 torchvision：\n {}".format(torchvision_url))  
             torchvision_install = [
                 "pip install {}".format(torchvision_url),
             ]
             run_cmd(torchvision_install)
 
-            print("即将从以下链接安装 torchaudio：\n {}".format(torchaudio_url))
+            echo("即将从以下链接安装 torchaudio：\n {}".format(torchaudio_url))
             torchaudio_install = [
                 "pip install {}".format(torchaudio_url),
             ]   

@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='zheinit',
-    version='0.0.8',
+    version='0.0.9',
     author='deng1fan',
     author_email='dengyifan@iie.ac.cn',
     url='https://github.com/deng1fan',

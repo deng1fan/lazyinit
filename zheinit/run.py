@@ -1,5 +1,5 @@
 import os
-from utils import run_cmd, echo, get_cmd_output
+from zheinit.utils import run_cmd, echo, get_cmd_output
 import yaml
 import datetime
 import time
@@ -13,8 +13,8 @@ def read_yaml(path):
 
 def run():
     
-    project_path = "/Users/dengyifan/Desktop/Github仓库/zheinit/zheinit/ProjectTemplate"
-    # project_path = os.getcwd()
+    # project_path = "/Users/dengyifan/Desktop/Github仓库/zheinit/zheinit/ProjectTemplate"
+    project_path = os.getcwd()
     echo("")
     echo("")
     echo("")
@@ -48,8 +48,14 @@ def run():
     
     echo("\n选择启动 {} 项目计划的模式，目前支持 “nohup”、“tmux”、“python”，默认为 “nohup”：".format(project_name))
     start_mode = input()
+    conda_env = ""
     if start_mode not in ["nohup", "tmux", "python"] or start_mode == "":
         start_mode = "nohup"
+    if start_mode == "tmux":
+        echo("\n请在下方输入您的 conda 环境名，默认 zhei：")
+        conda_env = input("")
+        if conda_env == "":
+            conda_env = "zhei"
     
     # ---------------------------------------------------------------------------- #
     #                         获取实验计划                                     
@@ -122,7 +128,7 @@ def run():
             run_cmd("tmux new-session -d -s {}".format(tmux_session))
             run_cmd("tmux send-keys -t {} {}".format(tmux_session, "cd {}".format(project_path)))
             run_cmd("tmux send-keys -t {} {}".format(tmux_session, "C-m"))
-            run_cmd("tmux send-keys -t {} {}".format(tmux_session, "conda activate zhei"))
+            run_cmd("tmux send-keys -t {} {}".format(tmux_session, "conda activate {}".format(conda_env)))
             run_cmd("tmux send-keys -t {} {}".format(tmux_session, "C-m"))
             run_cmd("tmux send-keys -t {} {}".format(tmux_session, cmd))
             run_cmd("tmux send-keys -t {} {}".format(tmux_session, "C-m"))
