@@ -17,6 +17,7 @@ setup(
         'bs4',
         'requests',
         'rich',
+        'yaml',
     ],
     exclude=["*.tests", "*.tests.*", "tests"],
     include_package_data=True,
