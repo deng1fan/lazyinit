@@ -1,3 +1,1 @@
-include lazyinit/*.txt
-include lazyinit/*.conf
-include lazyinit/ProjectTemplates/*.*
+global-include * 
