@@ -29,7 +29,7 @@ def run():
     echo("")
     echo("")
     echo("")
-    echo("                      欢迎试用 zhei 项目启动器！")
+    echo("                      欢迎使用 zhei 项目启动器！")
     echo("")
     echo("当前工作目录为：{}".format(project_path))
     
