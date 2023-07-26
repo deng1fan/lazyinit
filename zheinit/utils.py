@@ -23,13 +23,24 @@ def echo(msg, color="green"):
 def run_cmd(cmd_list):
     if not isinstance(cmd_list, list):
         cmd_list = [cmd_list]
+    outputs = []
     for cmd in cmd_list:
-        os.system(cmd)
+        while True:
+            exitcode, output = subprocess.getstatusoutput(cmd)
+            if exitcode != 0:
+                echo("执行 {} 失败！".format(cmd), "#FF6AB3")
+                echo("可通过在下方修改命令继续执行，或者直接按下回车键忽略该错误：")
+                cmd = input()
+                if cmd == "":
+                    outputs.append(output)
+                    break
+            else:
+                outputs.append(output)
+                break
+
+    return outputs
         
-def get_cmd_output(cmd):
-    return os.popen(cmd).read()
-        
- 
+
 
 def show_available_version(cuda_version="11.8", python_version="3.9"):
     url = "https://download.pytorch.org/whl/torch_stable.html"
