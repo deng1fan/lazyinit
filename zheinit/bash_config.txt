@@ -73,6 +73,8 @@ alias sc='source ~/.bashrc'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+alias redis='~/redis/bin/redis-server ~/redis/bin/redis.conf'
+alias redis-cli='~/redis/bin/redis-cli'
 
 
 COLOR_BOLD="[e[1m]"
