@@ -140,7 +140,8 @@ def run():
             
         echo("实验 {} 已启动！".format(exp_name), "#F48671")
         time.sleep(5)
+
     
-    echo("\n所有实验均已启动！您可以在下方输入 tmux ls 查看实验运行情况。", "green")
+    echo("\n所有实验均已启动！祝好运！", "green")
     
 # run()
