@@ -29,6 +29,7 @@ def run_cmd(cmd_list):
             exitcode, output = subprocess.getstatusoutput(cmd)
             if exitcode != 0:
                 echo("执行 {} 失败！".format(cmd), "#FF6AB3")
+                echo("错误信息：\n{}".format(output))
                 echo("可通过在下方修改命令继续执行，或者直接按下回车键忽略该错误：")
                 cmd = input()
                 if cmd == "":
