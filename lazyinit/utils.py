@@ -3,6 +3,8 @@ import requests as rq
 import pkg_resources
 import os
 from rich.console import Console
+import subprocess
+from rich.progress import track
 
 console = Console()
 
@@ -24,7 +26,8 @@ def run_cmd(cmd_list):
     if not isinstance(cmd_list, list):
         cmd_list = [cmd_list]
     outputs = []
-    for cmd in cmd_list:
+    for cmd in track(cmd_list, description="命令执行中...", transient=True):
+        echo(cmd, "blue")
         while True:
             exitcode, output = subprocess.getstatusoutput(cmd)
             if exitcode != 0:

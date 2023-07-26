@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='lazyinit',
-    version='0.0.1',
+    version='0.0.262',
     author='deng1fan',
     author_email='dengyifan@iie.ac.cn',
     url='https://github.com/deng1fan',
@@ -17,7 +17,7 @@ setup(
         'bs4',
         'requests',
         'rich',
-        'yaml',
+        'pyyaml',
     ],
     exclude=["*.tests", "*.tests.*", "tests"],
     include_package_data=True,

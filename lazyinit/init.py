@@ -28,9 +28,9 @@ def init():
         bash = [
             "cd ~/",
             "cat {}/bash_config.txt >> ~/.bashrc".format(pkg_current_path),
-            "source ~/.bashrc",
         ]
         run_cmd(bash)
+        echo("运行 {} 以完成配置（运行后需要重启工具）".format("source ~/.bashrc"), "yellow")
         
     echo("")
     echo("")
@@ -96,7 +96,7 @@ def init():
             #                             安装 ranger                                 
             # ---------------------------------------------------------------------------- #
             ranger = [
-                "pip install ranger-fm",
+                "python -m pip install ranger-fm",
                 "mv {}/ranger ~/.config/".format(pkg_current_path),
             ]
             run_cmd(ranger)
@@ -107,12 +107,16 @@ def init():
             # ---------------------------------------------------------------------------- #
             echo("即将创建 zhei 环境，请在下方输入 Python 版本号，默认为 3.9：", "yellow")
             python_version = input()
+            if python_version == "":
+                python_version = "3.9"
             echo("即将创建 zhei 环境，请在下方输入环境名称，将会自动安装 zhei 包，默认名称为 zhei：", "yellow")
             env_name = input()
+            if env_name == "":
+                env_name = "zhei"
             zhei = [
                 "conda create -n {} python={}".format(env_name, python_version),
                 "conda activate {}".format(env_name),
-                "pip install zhei --upgrade",
+                "python -m pip install zhei --upgrade",
             ]
             run_cmd(zhei)
 
@@ -122,19 +126,19 @@ def init():
 
             echo("即将从以下链接安装 torch：\n {}".format(torch_url))
             torch_install = [
-                "pip install {}".format(torch_url),
+                "python -m pip install {}".format(torch_url),
             ]   
             run_cmd(torch_install)
 
             echo("即将从以下链接安装 torchvision：\n {}".format(torchvision_url))  
             torchvision_install = [
-                "pip install {}".format(torchvision_url),
+                "python -m pip install {}".format(torchvision_url),
             ]
             run_cmd(torchvision_install)
 
             echo("即将从以下链接安装 torchaudio：\n {}".format(torchaudio_url))
             torchaudio_install = [
-                "pip install {}".format(torchaudio_url),
+                "python -m pip install {}".format(torchaudio_url),
             ]   
             run_cmd(torchaudio_install)
 
@@ -143,9 +147,8 @@ def init():
                 "cd ~/",
                 "wget https://download.redis.io/redis-stable.tar.gz",
                 "tar -xzvf redis-stable.tar.gz",
-                "cd redis-stable",
+                "cd redis-stable/src",
                 "make",
-                "cd src",
                 "make install PREFIX=~/redis",
                 "cp {}/redis.conf ~/redis/bin/".format(pkg_current_path),
                 "~/redis/bin/redis-server ~/redis/bin/redis.conf",
@@ -160,6 +163,8 @@ def init():
             
         elif step == "7":
             target_path = input("请输入项目路径（包含新的项目文件夹名），默认为 ~/code/zhei_project：")
+            if target_path == "":
+                target_path = "~/code/zhei_project"
             run_cmd([
                 "cp -r {}/ProjectTemplate {}".format(pkg_current_path, target_path),        
             ])

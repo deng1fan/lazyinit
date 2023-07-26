@@ -7,7 +7,7 @@ import time
 
 def read_yaml(path):
     with open(path, 'r') as f:
-        data = yaml.load(f, Loader=yaml.SafeLoader)
+        data = yaml.safe_load(f)
     return data
 
 
