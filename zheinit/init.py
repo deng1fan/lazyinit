@@ -62,8 +62,9 @@ def init():
         echo("2、安装 MiniConda", "blue")
         echo("3、安装 ranger 并自动配置", "blue")
         echo("4、创建 Conda  Pytorch 环境", "blue")
-        echo("5、生成公钥", "blue")
-        echo("6、生成 zhei 项目模板", "blue")
+        echo("5、安装 Redis", "blue")
+        echo("6、生成公钥", "blue")
+        echo("7、生成 zhei 项目模板", "blue")
         echo("0、退出", "blue")
         echo(" ", "blue")
         echo("请在下方输入操作序号：", "yellow")
@@ -136,15 +137,28 @@ def init():
                 "pip install {}".format(torchaudio_url),
             ]   
             run_cmd(torchaudio_install)
-            
+
         elif step == "5":
+            run_cmd([
+                "cd ~/",
+                "wget https://download.redis.io/redis-stable.tar.gz",
+                "tar -xzvf redis-stable.tar.gz",
+                "cd redis-stable",
+                "make",
+                "cd src",
+                "make install PREFIX=~/redis",
+                "cp {}/redis.conf ~/redis/bin/".format(pkg_current_path),
+                "~/redis/bin/redis-server ~/redis/bin/redis.conf",
+            ])
+            
+        elif step == "6":
             run_cmd([
                 "cd ~/.ssh",
                 "ssh-keygen -t rsa",
                 "cat id_rsa.pub"
             ])
             
-        elif step == "6":
+        elif step == "7":
             target_path = input("请输入项目路径（包含新的项目文件夹名），默认为 ~/code/zhei_project：")
             run_cmd([
                 "cp -r {}/ProjectTemplate {}".format(pkg_current_path, target_path),        
