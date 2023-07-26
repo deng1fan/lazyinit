@@ -1,5 +1,5 @@
 import os
-from zheinit.utils import run_cmd, echo, get_cmd_output
+from zheinit.utils import run_cmd, echo
 import yaml
 import datetime
 import time
