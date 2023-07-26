@@ -1,10 +1,10 @@
 import os
-from zheinit.utils import show_available_version, run_cmd, echo, get_cmd_output
+from zheinit.utils import show_available_version, run_cmd, echo
 
 
 def init():
-    if "bash" not in get_cmd_output("echo $SHELL"):
-        if "bash" not in get_cmd_output("cat /etc/shells"):
+    if "bash" not in run_cmd("echo $SHELL")[0]:
+        if "bash" not in run_cmd("cat /etc/shells")[0]:
             echo("未找到 bash 环境，请先安装 bash 环境！", "red")
         else:        
             echo("请在 bash 环境下运行本工具！")
@@ -19,7 +19,7 @@ def init():
     # 读取 ~/.bashrc 文件内容
     if not os.path.exists("~/.bashrc"):
         run_cmd("touch ~/.bashrc")
-    bashrc = get_cmd_output("cat ~/.bashrc")
+    bashrc = run_cmd("cat ~/.bashrc")[0]
     if "zhei-init" not in bashrc:
         print("未找到 zhei-init 配置，即将注入配置到 ~/.bashrc（完成后可能需要重启初始化工具）")
         # ---------------------------------------------------------------------------- #
@@ -28,7 +28,6 @@ def init():
         bash = [
             "cd ~/",
             "cat {}/bash_config.txt >> ~/.bashrc".format(pkg_current_path),
-            "conda init bash",
             "source ~/.bashrc",
         ]
         run_cmd(bash)
@@ -48,6 +47,7 @@ def init():
     echo("")
     echo("")
     echo("             欢迎使用服务器环境初始化工具 zhei-init ！", "green")
+    echo("")
     echo("   本工具将会帮助您初始化服务器环境，下面是功能菜单，可输入序号进行配置", "green")
 
     step = "-1"
