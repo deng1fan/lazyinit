@@ -1,5 +1,5 @@
 import os
-from zheinit.utils import run_cmd, echo
+from lazyinit.utils import run_cmd, echo
 import yaml
 import datetime
 import time

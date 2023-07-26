@@ -1,5 +1,5 @@
 import os
-from zheinit.utils import show_available_version, run_cmd, echo
+from lazyinit.utils import show_available_version, run_cmd, echo
 
 
 def init():

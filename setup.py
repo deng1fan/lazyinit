@@ -4,8 +4,8 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='zheinit',
-    version='0.0.11',
+    name='lazyinit',
+    version='0.0.1',
     author='deng1fan',
     author_email='dengyifan@iie.ac.cn',
     url='https://github.com/deng1fan',
@@ -25,8 +25,8 @@ setup(
     entry_points = {
         'console_scripts' : [
             # 这一行是安装到命令行运行的关键
-            'ini = zheinit.init:init',
-            'run = zheinit.run:run'
+            'ini = lazyinit.init:init',
+            'run = lazyinit.run:run'
         ]
     }
 )
