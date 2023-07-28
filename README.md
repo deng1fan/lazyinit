@@ -3,14 +3,17 @@
 
 # 安装
 ```bash
-pip install zhei
+pip install lazydl -i https://pypi.org/simple
 ```
 
 
-# 使用
-```python
-import zhei as j
+# 初始化环境
+```bash
+ini
+```
 
-j.init()
+# 运行 Lazydl
+```bash
+run
 ```
 
