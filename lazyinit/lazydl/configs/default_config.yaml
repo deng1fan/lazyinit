@@ -5,21 +5,21 @@ defaults:
   - override hydra/job_logging: colorlog
   - _self_
 
-comet_api_key: lGIPkizDNha2kLEsqNDinrAgP
+comet_api_key: 
 comet_project_name: Default Project
 
-dingding_secret: SEC86418ce8939ca7ff3d2442ead039cec1d6cb765b01d7971e20b2c69ab2069eb3
-dingding_access_token: 5f7199dea2b58e5c765fc3573335e0f558207ecf75304114c5015e2a6b4fed58
+dingding_secret: 
+dingding_access_token: 
 
 visibale_cuda: all
 
-huggingface_hub_token: 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
+huggingface_hub_token: 
 
 # 处理器类型
 # 如果为 gpu，共有以下几种选择：
 # 自动选择需要加上 ^ 符号，即 ^[GPU 数量]，如 ^2 表示自动选择 2 块显卡
 # 手动选择直接列出需要使用的显卡编号，如 0,1 表示使用 0 号和 1 号显卡
-processing_unit: cpu  # 必需
+processing_unit: ^1  # 必需
 # 是否排队等待处理器
 queuing: False  # 必需
 # 选择的处理器最小空闲显存，单位为 GB

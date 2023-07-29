@@ -1,10 +1,10 @@
 import os
-from lazyinit.utils import show_available_version, run_cmd, echo
+from lazyinit.utils import show_available_version, run_cmd, echo, run_cmd_inactivate
 
 
 def init():
-    if "bash" not in run_cmd("echo $SHELL")[0]:
-        if "bash" not in run_cmd("cat /etc/shells")[0]:
+    if "bash" not in run_cmd("echo $SHELL", show_cmd=False):
+        if "bash" not in run_cmd("cat /etc/shells", show_cmd=False):
             echo("未找到 bash 环境，请先安装 bash 环境！", "red")
         else:        
             echo("请在 bash 环境下运行本工具！")
@@ -14,14 +14,14 @@ def init():
 
     pkg_current_path = os.path.dirname(os.path.abspath(__file__))
     python_version = "3.9"
-    env_name = "zhei"
+    env_name = "lazydl"
 
     # 读取 ~/.bashrc 文件内容
     if not os.path.exists("~/.bashrc"):
-        run_cmd("touch ~/.bashrc")
-    bashrc = run_cmd("cat ~/.bashrc")[0]
-    if "zhei-init" not in bashrc:
-        print("未找到 zhei-init 配置，即将注入配置到 ~/.bashrc（完成后可能需要重启初始化工具）")
+        run_cmd("touch ~/.bashrc", show_cmd=False)
+    bashrc = run_cmd("cat ~/.bashrc", show_cmd=False)
+    if "lazydl-init" not in bashrc:
+        print("未找到 lazydl-init 配置，即将注入配置到 ~/.bashrc（完成后可能需要重启初始化工具）")
         # ---------------------------------------------------------------------------- #
         #                         配置 Bash 环境变量                                     
         # ---------------------------------------------------------------------------- #
@@ -29,27 +29,27 @@ def init():
             "cd ~/",
             "cat {}/bash_config.txt >> ~/.bashrc".format(pkg_current_path),
         ]
-        run_cmd(bash)
+        run_cmd(bash, show_cmd=False)
         echo("运行 {} 以完成配置（运行后需要重启工具）".format("source ~/.bashrc"), "yellow")
+        exit(0)
         
     echo("")
     echo("")
     echo("")
-    echo("      _____                          _      ____                  _")
-    echo("     |  __ \\                        | |    |  _ \\                | |")
-    echo("     | |__) |____      _____ _ __ __| |    | |_) |_   _          | |")
-    echo("     |  ___/ _ \\ \\ /\\ / / _ \\ '__/ _` |    |  _ <| | | |     _   | |")
-    echo("     | |  | (_) \\ V  V /  __/ | | (_| |    | |_) | |_| |    | |__| |")
-    echo("     |_|   \\___/ \\_/\\_/ \\___|_|  \\__,_|    |____/ \\__, |     \\____/")
-    echo("                                                   __/ |")
-    echo("                                                  |___/")
+    echo("")
+    echo("")
+    echo("         __                         __  ___      __                ____")
+    echo("        / /   ____ _____  __  __   /  |/  /___ _/ /_____  _____   / __ )__  _________  __")
+    echo("       / /   / __ `/_  / / / / /  / /|_/ / __ `/ //_/ _ \\/ ___/  / __  / / / / ___/ / / /")
+    echo("      / /___/ /_/ / / /_/ /_/ /  / /  / / /_/ / ,< /  __(__  )  / /_/ / /_/ (__  ) /_/ /")
+    echo("     /_____/\\__,_/ /___/\\__, /  /_/  /_/\\__,_/_/|_|\\___/____/  /_____/\\__,_/____/\\__, /")
+    echo("                       /____/                                                   /____/")
     echo("")
     echo("")
     echo("")
-    echo("             欢迎使用服务器环境初始化工具 zhei-init ！", "green")
     echo("")
-    echo("   本工具将会帮助您初始化服务器环境，下面是功能菜单，可输入序号进行配置", "green")
 
+ 
     step = "-1"
     while step != "0":
         if step != "-1":
@@ -64,7 +64,7 @@ def init():
         echo("4、创建 Conda  Pytorch 环境", "blue")
         echo("5、安装 Redis", "blue")
         echo("6、生成公钥", "blue")
-        echo("7、生成 zhei 项目模板", "blue")
+        echo("7、生成 lazydl 项目模板", "blue")
         echo("0、退出", "blue")
         echo(" ", "blue")
         echo("请在下方输入操作序号：", "yellow")
@@ -103,22 +103,26 @@ def init():
 
         elif step == "4":
             # ---------------------------------------------------------------------------- #
-            #                         创建 zhei 环境                                     
+            #                         创建 lazydl 环境                                     
             # ---------------------------------------------------------------------------- #
-            echo("即将创建 zhei 环境，请在下方输入 Python 版本号，默认为 3.9：", "yellow")
+            echo("即将创建 lazydl 环境，请在下方输入 Python 版本号，默认为 3.9：", "yellow")
             python_version = input()
             if python_version == "":
                 python_version = "3.9"
-            echo("即将创建 zhei 环境，请在下方输入环境名称，将会自动安装 zhei 包，默认名称为 zhei：", "yellow")
+            echo("即将创建 lazydl 环境，请在下方输入环境名称，将会自动安装 lazydl 包，默认名称为 lazydl：", "yellow")
             env_name = input()
             if env_name == "":
-                env_name = "zhei"
-            zhei = [
-                "conda create -n {} python={}".format(env_name, python_version),
+                env_name = "lazydl"
+            
+            run_cmd_inactivate("conda create -n {} python={}".format(env_name, python_version))
+            
+            echo("即将激活环境并安装依赖，如果是首次激活需要补充 “conda init” 指令哦！")
+            
+            lazydl = [
                 "conda activate {}".format(env_name),
-                "python -m pip install zhei --upgrade",
+                "python -m pip install lazydl --upgrade",
             ]
-            run_cmd(zhei)
+            run_cmd(lazydl)
 
             echo("即将安装 Pytorch，请选择 CUDA 版本号，默认为 11.8：", "yellow")
             cuda_version = input()
@@ -143,30 +147,38 @@ def init():
             run_cmd(torchaudio_install)
 
         elif step == "5":
+            echo("安装 Redis 时间可能较长（大约五分钟），请耐心等待！")
             run_cmd([
-                "cd ~/",
-                "wget https://download.redis.io/redis-stable.tar.gz",
-                "tar -xzvf redis-stable.tar.gz",
-                "cd redis-stable/src",
-                "make",
-                "make install PREFIX=~/redis",
+                "sh {}/redis.sh".format(pkg_current_path),
                 "cp {}/redis.conf ~/redis/bin/".format(pkg_current_path),
                 "~/redis/bin/redis-server ~/redis/bin/redis.conf",
             ])
             
         elif step == "6":
-            run_cmd([
+            run_cmd_inactivate([
                 "cd ~/.ssh",
                 "ssh-keygen -t rsa",
                 "cat id_rsa.pub"
             ])
             
         elif step == "7":
-            target_path = input("请输入项目路径（包含新的项目文件夹名），默认为 ~/code/zhei_project：")
-            if target_path == "":
-                target_path = "~/code/zhei_project"
+            echo("请在下方输入 “项目路径 项目文件夹名称”， 默认为 “./ lazydl” ：", "yellow")
+            target = input()
+            if target == "":
+                target = os.getcwd() + " lazydl"
+            if len(target.split(" ")) != 2:
+                echo("输入有误，请重新输入！")
+                continue
+            
+            target_path = target.split(" ")[0]
+            target_name = target.split(" ")[1]
+            if not os.path.exists(target_path):
+                os.makedirs(target_path)
+                
             run_cmd([
-                "cp -r {}/ProjectTemplate {}".format(pkg_current_path, target_path),        
+                "cp -r {}/lazydl {}".format(pkg_current_path, target_path),   
+                "cd {}".format(target_path),
+                "mv lazydl {}".format(target_name),     
             ])
             
         elif step == "0":

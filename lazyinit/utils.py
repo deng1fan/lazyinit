@@ -21,16 +21,51 @@ def package_installed(package_name):
 
 def echo(msg, color="green"):
     console.print(msg, style=color)
+    
 
-def run_cmd(cmd_list):
+def run_cmd_inactivate(cmd_list):
     if isinstance(cmd_list, str):
-        echo("\n" + cmd, "blue")
+        cmd = cmd_list
+        print("\n" + cmd)
+        while True:
+            exitcode = os.system(cmd)
+            if exitcode != 0:
+                echo("执行 {} 失败！".format(cmd), "#FF6AB3")
+                echo("可通过在下方修改命令继续执行，或者直接按下回车键结束操作：")
+                cmd = input()
+                if cmd == "":   
+                    return exitcode
+            else:
+                return exitcode
+            
+    outputs = []
+    for cmd in track(cmd_list, description="命令执行中", transient=True):
+        print("\n" + cmd)
+        while True:
+            exitcode = os.system(cmd)
+            if exitcode != 0:
+                echo("执行 {} 失败！".format(cmd), "#FF6AB3")
+                echo("可通过在下方修改命令继续执行，或者直接按下回车键结束操作：")
+                cmd = input()
+                if cmd == "":
+                    break
+            else:
+                break
+
+    return outputs   
+
+
+def run_cmd(cmd_list, show_cmd=True):
+    if isinstance(cmd_list, str):
+        cmd = cmd_list
+        if show_cmd:
+            print("\n" + cmd)
         while True:
             exitcode, output = subprocess.getstatusoutput(cmd)
             if exitcode != 0:
                 echo("执行 {} 失败！".format(cmd), "#FF6AB3")
                 echo("错误信息：\n{}".format(output))
-                echo("可通过在下方修改命令继续执行，或者直接按下回车键忽略该错误：")
+                echo("可通过在下方修改命令继续执行，或者直接按下回车键结束操作：")
                 cmd = input()
                 if cmd == "":
                     return output
@@ -38,14 +73,15 @@ def run_cmd(cmd_list):
                 return output
             
     outputs = []
-    for cmd in track(cmd_list, description="命令执行中...", transient=True):
-        print("\n" + cmd)
+    for cmd in track(cmd_list, description="命令执行中", transient=True):
+        if show_cmd:
+            print("\n" + cmd)
         while True:
             exitcode, output = subprocess.getstatusoutput(cmd)
             if exitcode != 0:
                 echo("执行 {} 失败！".format(cmd), "#FF6AB3")
                 echo("错误信息：\n{}".format(output))
-                echo("可通过在下方修改命令继续执行，或者直接按下回车键忽略该错误：")
+                echo("可通过在下方修改命令继续执行，或者直接按下回车键结束操作：")
                 cmd = input()
                 if cmd == "":
                     outputs.append(output)
