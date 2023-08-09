@@ -20,8 +20,8 @@ def init():
     if not os.path.exists("~/.bashrc"):
         run_cmd("touch ~/.bashrc", show_cmd=False)
     bashrc = run_cmd("cat ~/.bashrc", show_cmd=False)
-    if "lazydl-init" not in bashrc:
-        print("未找到 lazydl-init 配置，即将注入配置到 ~/.bashrc（完成后可能需要重启初始化工具）")
+    if "lazyinit" not in bashrc:
+        print("未找到 lazyinit 配置，即将注入配置到 ~/.bashrc（完成后可能需要重启初始化工具）")
         # ---------------------------------------------------------------------------- #
         #                         配置 Bash 环境变量                                     
         # ---------------------------------------------------------------------------- #
@@ -61,7 +61,7 @@ def init():
         echo("1、设置 pip 源", "blue") 
         echo("2、安装 MiniConda", "blue")
         echo("3、安装 ranger 并自动配置", "blue")
-        echo("4、创建 Conda  Pytorch 环境", "blue")
+        echo("4、新建虚拟环境", "blue")
         echo("5、安装 Redis", "blue")
         echo("6、生成公钥", "blue")
         echo("7、生成 lazydl 项目模板", "blue")
@@ -76,6 +76,8 @@ def init():
             pip_source = [
                 "conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/",
                 "conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/",
+                "conda config --add channels http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/",
+                "conda config --add channels http://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/",
                 "conda config --set show_channel_urls yes",
                 "pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple",
                 "pip config set global.extra-index-url https://pypi.org/simple"
@@ -86,7 +88,7 @@ def init():
             # ---------------------------------------------------------------------------- #
             #                         安装 MiniConda                                     
             # ---------------------------------------------------------------------------- #
-            run_cmd([
+            run_cmd_inactivate([
                 "wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh",
                 "sh Miniconda3-latest-Linux-x86_64.sh",
             ])
@@ -114,37 +116,43 @@ def init():
             if env_name == "":
                 env_name = "lazydl"
             
-            run_cmd_inactivate("conda create -n {} python={}".format(env_name, python_version))
+            run_cmd_inactivate("conda create -n {} python={} pandas".format(env_name, python_version))
             
-            echo("即将激活环境并安装依赖，如果是首次激活需要补充 “conda init” 指令哦！")
+            echo("访问 Pytorch 官网获取最新安装命令：https://pytorch.org/get-started/locally/")
+            echo("请在下方输入 Pytorch 安装命令：", "yellow")
+            pytorch_install = input()
+            run_cmd_inactivate(pytorch_install)
             
-            lazydl = [
-                "conda activate {}".format(env_name),
-                "python -m pip install lazydl --upgrade",
-            ]
-            run_cmd(lazydl)
+            
+            # echo("即将激活环境并安装依赖，如果是首次激活需要补充 “conda init” 指令哦！")
+            
+            # lazydl = [
+            #     # "conda activate {}".format(env_name),
+            #     "python -m pip install lazydl --upgrade",
+            # ]
+            # run_cmd_inactivate(lazydl)
 
-            echo("即将安装 Pytorch，请选择 CUDA 版本号，默认为 11.8：", "yellow")
-            cuda_version = input()
-            torch_url, torchvision_url, torchaudio_url = show_available_version(cuda_version, python_version)
+            # echo("即将安装 Pytorch，请选择 CUDA 版本号，默认为 11.8：", "yellow")
+            # cuda_version = input()
+            # torch_url, torchvision_url, torchaudio_url = show_available_version(cuda_version, python_version)
 
-            echo("即将从以下链接安装 torch：\n {}".format(torch_url))
-            torch_install = [
-                "python -m pip install {}".format(torch_url),
-            ]   
-            run_cmd(torch_install)
+            # echo("即将从以下链接安装 torch：\n {}".format(torch_url))
+            # torch_install = [
+            #     "python -m pip install {}".format(torch_url),
+            # ]   
+            # run_cmd(torch_install)
 
-            echo("即将从以下链接安装 torchvision：\n {}".format(torchvision_url))  
-            torchvision_install = [
-                "python -m pip install {}".format(torchvision_url),
-            ]
-            run_cmd(torchvision_install)
+            # echo("即将从以下链接安装 torchvision：\n {}".format(torchvision_url))  
+            # torchvision_install = [
+            #     "python -m pip install {}".format(torchvision_url),
+            # ]
+            # run_cmd(torchvision_install)
 
-            echo("即将从以下链接安装 torchaudio：\n {}".format(torchaudio_url))
-            torchaudio_install = [
-                "python -m pip install {}".format(torchaudio_url),
-            ]   
-            run_cmd(torchaudio_install)
+            # echo("即将从以下链接安装 torchaudio：\n {}".format(torchaudio_url))
+            # torchaudio_install = [
+            #     "python -m pip install {}".format(torchaudio_url),
+            # ]   
+            # run_cmd(torchaudio_install)
 
         elif step == "5":
             echo("安装 Redis 时间可能较长（大约五分钟），请耐心等待！")
@@ -162,23 +170,23 @@ def init():
             ])
             
         elif step == "7":
-            echo("请在下方输入 “项目路径 项目文件夹名称”， 默认为 “./ lazydl” ：", "yellow")
-            target = input()
-            if target == "":
-                target = os.getcwd() + " lazydl"
-            if len(target.split(" ")) != 2:
-                echo("输入有误，请重新输入！")
-                continue
+            echo("请在下方输入 “项目路径”， 默认为 “./lazydl” ：", "yellow")
+            target_path = input()
+            # if target == "":
+            #     target = os.getcwd() + " lazydl"
+            # if len(target.split(" ")) != 2:
+            #     echo("输入有误，请重新输入！")
+            #     continue
             
-            target_path = target.split(" ")[0]
-            target_name = target.split(" ")[1]
+            # target_path = target.split(" ")[0]
+            # target_name = target.split(" ")[1]
             if not os.path.exists(target_path):
                 os.makedirs(target_path)
                 
             run_cmd([
                 "cp -r {}/lazydl {}".format(pkg_current_path, target_path),   
-                "cd {}".format(target_path),
-                "mv lazydl {}".format(target_name),     
+                # "cd {}".format(target_path),
+                # "mv lazydl {}".format(target_name),     
             ])
             
         elif step == "0":
