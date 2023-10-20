@@ -13,7 +13,7 @@ def read_yaml(path):
 
 def run():
     
-    # project_path = "/Users/dengyifan/Desktop/Github仓库/zheinit/zheinit/ProjectTemplate"
+    # project_path = "/Users/dengyifan/Desktop/Github仓库/lazydlnit/lazydlnit/ProjectTemplate"
     project_path = os.getcwd()
     echo("")
     echo("")
@@ -52,10 +52,10 @@ def run():
     if start_mode not in ["nohup", "tmux", "python"] or start_mode == "":
         start_mode = "nohup"
     if start_mode == "tmux":
-        echo("\n请在下方输入您的 conda 环境名，默认 zhei：")
+        echo("\n请在下方输入您的 conda 环境名，默认 lazydl：")
         conda_env = input("")
         if conda_env == "":
-            conda_env = "zhei"
+            conda_env = "lazydl"
     
     # ---------------------------------------------------------------------------- #
     #                         获取实验计划                                     

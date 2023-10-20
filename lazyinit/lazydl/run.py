@@ -1,14 +1,18 @@
+import lazydl as l
 from omegaconf import DictConfig
 import hydra
-import zhei as j
+from lazyinit.utils import run_cmd, echo
+import os
 
-log = j.Logger(__name__)
+log = l.Logger(__name__)
 
-@hydra.main(version_base="1.2", config_path="configs/", config_name="default_config.yaml")
+config_file = "default_config.yaml"
+
+
+@hydra.main(version_base="1.2", config_path="configs/", config_name=config_file)
 def main(config: DictConfig) -> float:
-    j.hi()
-    j.help()
-    config = j.init_env(config)
+    l.hi()
+    config, experiment = l.init_env(config)
     # ---------------------------------------------------------------------------- #
     #                          加载数据集                                    
     # ---------------------------------------------------------------------------- #
@@ -33,7 +37,7 @@ def main(config: DictConfig) -> float:
     # ---------------------------------------------------------------------------- #
     #                         算力准备                                     
     # ---------------------------------------------------------------------------- #
-    config = j.set_processing_units(config)
+    config = l.set_processing_units(config)
     
     
     # ---------------------------------------------------------------------------- #
