@@ -107,11 +107,11 @@ def init():
             # ---------------------------------------------------------------------------- #
             #                         创建 lazydl 环境                                     
             # ---------------------------------------------------------------------------- #
-            echo("即将创建 lazydl 环境，请在下方输入 Python 版本号，默认为 3.9：", "yellow")
+            echo("即将创建新环境，请在下方输入 Python 版本号，默认为 3.9：", "yellow")
             python_version = input()
             if python_version == "":
                 python_version = "3.9"
-            echo("即将创建 lazydl 环境，请在下方输入环境名称，将会自动安装 lazydl 包，默认名称为 lazydl：", "yellow")
+            echo("即将创建新环境，请在下方输入环境名称，将会自动安装 lazydl 包，默认名称为 lazydl：", "yellow")
             env_name = input()
             if env_name == "":
                 env_name = "lazydl"
@@ -119,40 +119,10 @@ def init():
             run_cmd_inactivate("conda create -n {} python={} pandas".format(env_name, python_version))
             
             echo("访问 Pytorch 官网获取最新安装命令：https://pytorch.org/get-started/locally/")
-            echo("请在下方输入 Pytorch 安装命令：", "yellow")
-            pytorch_install = input()
-            run_cmd_inactivate(pytorch_install)
-            
-            
-            # echo("即将激活环境并安装依赖，如果是首次激活需要补充 “conda init” 指令哦！")
-            
-            # lazydl = [
-            #     # "conda activate {}".format(env_name),
-            #     "python -m pip install lazydl --upgrade",
-            # ]
-            # run_cmd_inactivate(lazydl)
-
-            # echo("即将安装 Pytorch，请选择 CUDA 版本号，默认为 11.8：", "yellow")
-            # cuda_version = input()
-            # torch_url, torchvision_url, torchaudio_url = show_available_version(cuda_version, python_version)
-
-            # echo("即将从以下链接安装 torch：\n {}".format(torch_url))
-            # torch_install = [
-            #     "python -m pip install {}".format(torch_url),
-            # ]   
-            # run_cmd(torch_install)
-
-            # echo("即将从以下链接安装 torchvision：\n {}".format(torchvision_url))  
-            # torchvision_install = [
-            #     "python -m pip install {}".format(torchvision_url),
-            # ]
-            # run_cmd(torchvision_install)
-
-            # echo("即将从以下链接安装 torchaudio：\n {}".format(torchaudio_url))
-            # torchaudio_install = [
-            #     "python -m pip install {}".format(torchaudio_url),
-            # ]   
-            # run_cmd(torchaudio_install)
+            echo("请在下方手动切换到 {} 环境并输入 Pytorch 安装命令运行：".format(env_name), "yellow")
+            # pytorch_install = input()
+            # run_cmd_inactivate(pytorch_install)
+        
 
         elif step == "5":
             echo("安装 Redis 时间可能较长（大约五分钟），请耐心等待！")
