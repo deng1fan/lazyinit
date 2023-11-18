@@ -1,5 +1,5 @@
 import os
-from lazyinit.utils import run_cmd, echo
+from lazyinit.utils import run_cmd, run_cmd_inactivate, echo
 import yaml
 import datetime
 import time
@@ -13,7 +13,6 @@ def read_yaml(path):
 
 def run():
     
-    # project_path = "/Users/dengyifan/Desktop/Github仓库/lazydlnit/lazydlnit/ProjectTemplate"
     project_path = os.getcwd()
     echo("")
     echo("")
@@ -29,12 +28,12 @@ def run():
     echo("")
     echo("")
     echo("")
-    echo("                                  欢迎使用 LadyDL 项目启动器！")
+    echo("                                  欢迎使用 LazyDL 项目启动器！")
     echo("")
     echo("当前工作目录为：{}".format(project_path))
     
     # 获取可选的项目名
-    projects = os.listdir(os.path.join(project_path, "configs/exps"))
+    projects = os.listdir(os.path.join(project_path, "configs/experiments"))
     echo("\n可选的项目名：")
     for i, project in enumerate(projects):
         if "." in project:
@@ -60,7 +59,7 @@ def run():
     # ---------------------------------------------------------------------------- #
     #                         获取实验计划                                     
     # ---------------------------------------------------------------------------- #
-    exp_plan_path = os.path.join(project_path, "configs/exps/{}/exp_plan.yaml".format(project_name))
+    exp_plan_path = os.path.join(project_path, "configs/experiments/{}/exp_plan.yaml".format(project_name))
     exp_plan = read_yaml(exp_plan_path)
     
     # ---------------------------------------------------------------------------- #
@@ -83,7 +82,7 @@ def run():
         # ---------------------------------------------------------------------------- #
         exp_cfg_path = exp_plan['experiments'][exp_name]['config_path']
         hyper_params = exp_plan['experiments'][exp_name]['hyper_params']
-        exp_cfg = read_yaml(os.path.join(project_path, "configs/exps/{}.yaml".format(exp_cfg_path)))
+        exp_cfg = read_yaml(os.path.join(project_path, "configs/experiments/{}.yaml".format(exp_cfg_path)))
         exp_cfg_keys = list(exp_cfg.keys())
         all_existed_keys = list(set(defalut_exp_cfg_keys + exp_cfg_keys))
         
@@ -101,7 +100,12 @@ def run():
         
     
         if start_mode == "nohup":
-            log_path = os.path.join(project_path, "logs/{}/{}.log".format(project_name, "{}_{}".format(exp_name, datetime.datetime.now().strftime('%Y%m%d%H%M%S'))))
+            log_path = os.path.join(project_path, "nohup_logs/{}/{}.log".format(project_name, "{}_{}".format(exp_name, datetime.datetime.now().strftime('%Y%m%d%H%M%S'))))
+            
+            parent_path = "/".join(log_path.split("/")[:-1])
+            if not os.path.exists(parent_path):
+                os.makedirs(parent_path)
+            
             cmd = "nohup python run.py"
             cmd += hyper_params_str
             cmd += " +experiments={}".format(exp_cfg_path)
@@ -115,7 +119,7 @@ def run():
             cmd += hyper_params_str
             cmd += " +experiments={}".format(exp_cfg_path)
             echo(cmd, "yellow")
-            run_cmd(cmd)
+            run_cmd_inactivate(cmd)
             
         elif start_mode == "tmux":
             tmux_session = "{}@{}".format(exp_name, datetime.datetime.now().strftime('%Y%m%d%H%M%S'))
@@ -138,7 +142,7 @@ def run():
             echo("关闭日志：tmux kill-session -t {}".format(tmux_session))
             run_cmd(cmd)
             
-        echo("实验 {} 已启动！".format(exp_name), "#F48671")
+        echo("\n实验 {} 已启动！".format(exp_name), "#F48671")
         time.sleep(5)
 
     

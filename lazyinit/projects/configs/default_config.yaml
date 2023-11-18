@@ -1,0 +1,112 @@
+# @package _global_
+
+defaults:
+  - override hydra/hydra_logging: colorlog
+  - override hydra/job_logging: colorlog
+  - _self_
+
+visibale_cuda: all
+
+
+# ---------------------------------------------------------------------------- #
+#                         一些 API Key 设置                                     
+# ---------------------------------------------------------------------------- #
+comet_api_key: lGIPkizDNha2kLEsqNDinrAgP
+dingding_secret: SEC59b1bd031dfcf903b6e3a4bd0542267d780b368ab763f9855372a06cd8e2f1e3
+dingding_access_token: 0ff746e19bc085c1f9ce38df21f0acfdb6c04f0d1756bb216f4633376c8441fd
+huggingface_hub_token: 
+
+# 处理器类型
+# 如果为 gpu，共有以下几种选择：
+# 自动选择需要加上 ^ 符号，即 ^[GPU 数量]，如 ^2 表示自动选择 2 块显卡
+# 手动选择直接列出需要使用的显卡编号，如 0,1 表示使用 0 号和 1 号显卡
+processing_unit: ^1  # 必需
+# 是否排队等待处理器
+queuing: False  # 必需
+# 选择的处理器最小空闲显存，单位为 GB
+processing_unit_min_free_memory: 2
+# 选择的处理器最小空闲显存比例
+processing_unit_min_free_memory_ratio: 0.1
+# 处理器选择，程序自动填充，不需要手动填写
+# 其中，gpu-x-y 表示 x 表示是否手动选择（m：手动，a：自动），y 为显卡数量（m：多卡，s:单卡）
+processing_unit_type:  # cpu, gpu-m-m, gpu-m-s, gpu-a-m, gpu-a-s, ......
+
+
+# ---------------------------------------------------------------------------- #
+#                         任务标识、描述、Comet 设置等                                   
+# ---------------------------------------------------------------------------- #
+# 程序自动生成，无需手动填写
+task_id: 
+# 对实验的描述
+memo: No task description.
+
+# 是否开启 Comet.ml 实验记录
+start_comet_log: False
+# Comet 项目名称
+comet_project_name: ProjectExample
+# Comet 实验名称
+comet_exp_name: example
+# 自定义进程名
+proc_title: ${comet_exp_name}
+
+
+
+# ---------------------------------------------------------------------------- #
+#                         地址相关，包括缓存地址、保存地址等等                                     
+# ---------------------------------------------------------------------------- #
+root_dir: ${hydra:runtime.cwd}
+output_dir: ${root_dir}/outputs/${comet_exp_name}_${task_id}
+
+
+# ---------------------------------------------------------------------------- #
+#                               数据、模型加载                               
+# ---------------------------------------------------------------------------- #
+dataloader_num_workers: 3
+remove_unused_columns: false
+train_data_file: 
+val_data_file: 
+test_data_file: 
+train_batch_size: 8
+val_batch_size: 8
+test_batch_size: 8
+dataset_module_file: dataset.xxx
+dataset_collator_function_file: dataset.xxx
+
+
+
+# ---------------------------------------------------------------------------- #
+#                                  训练参数                                     
+# ---------------------------------------------------------------------------- #
+seed: 3407
+max_epochs: 1
+accumulate_grad_batches: 2
+lr: 1e-5
+lr_scheduler: linear
+
+
+# ---------------------------------------------------------------------------- #
+#                                    保存                                     
+# ---------------------------------------------------------------------------- #
+logging_steps: 300
+save_steps: 500
+save_total_limit: 1
+save_strategy: steps
+
+
+# ---------------------------------------------------------------------------- #
+#                        HuggingFace Trainer Args                                     
+# ---------------------------------------------------------------------------- #
+hf_args:
+  num_train_epochs: ${max_epochs}
+  gradient_accumulation_steps: ${accumulate_grad_batches}
+  learning_rate: ${lr}
+  per_device_train_batch_size: ${train_batch_size}
+
+# ---------------------------------------------------------------------------- #
+#                         Lightning Trainer Args                                     
+# ---------------------------------------------------------------------------- #
+lit_args:
+  max_epochs: ${max_epochs}
+  accumulate_grad_batches: ${accumulate_grad_batches}
+  num_sanity_val_steps: 2
+  default_root_dir: ${output_dir}

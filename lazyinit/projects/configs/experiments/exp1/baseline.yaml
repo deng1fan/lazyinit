@@ -1,0 +1,47 @@
+# @package _global_
+
+# ---------------------------------------------------------------------------- #
+#                         任务标识、描述、Comet 设置等                                      
+# ---------------------------------------------------------------------------- #
+memo: 基于 ChatGLM2 的心理大模型微调
+
+comet_project: PsychologyModel
+comet_exp_name: psychology_chatglm2_finetune
+
+
+# ---------------------------------------------------------------------------- #
+#                               数据、模型加载                               
+# ---------------------------------------------------------------------------- #
+model_name_or_path: THUDM/chatglm2-6b-32k
+train_data_file: ${root_dir}/data/zy_data.jsonl
+val_data_file: ${root_dir}/data/zy_data.jsonl
+test_data_file: ${root_dir}/data/zy_data.jsonl
+dataset_module_file: dataset.glm_sft.GLMDataset
+dataset_collator_function_file: dataset.glm_sft.GLMDataCollator
+
+ 
+# ---------------------------------------------------------------------------- #
+#                                  训练参数                                     
+# ---------------------------------------------------------------------------- #
+max_epochs: 1
+lr: 2e-4
+max_seq_length: 1024
+lr_scheduler_type: constant_with_warmup
+warmup_steps: 3000
+lora_rank: 64
+lora_alpha: 16
+lora_dropout: 0.05
+optim: paged_adamw_32bit
+gradient_checkpointing: true
+fp16: true
+weight_decay: 0
+max_grad_norm: 0.3
+
+
+# ---------------------------------------------------------------------------- #
+#                                    保存                                     
+# ---------------------------------------------------------------------------- #
+logging_steps: 300
+save_steps: 500
+save_total_limit: 1
+save_strategy: steps
