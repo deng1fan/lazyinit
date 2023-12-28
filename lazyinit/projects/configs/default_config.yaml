@@ -5,7 +5,7 @@ defaults:
   - override hydra/job_logging: colorlog
   - _self_
 
-visibale_cuda: all
+visible_cuda: "0"
 
 
 # ---------------------------------------------------------------------------- #
@@ -16,20 +16,23 @@ dingding_secret: SEC59b1bd031dfcf903b6e3a4bd0542267d780b368ab763f9855372a06cd8e2
 dingding_access_token: 0ff746e19bc085c1f9ce38df21f0acfdb6c04f0d1756bb216f4633376c8441fd
 huggingface_hub_token: 
 
-# 处理器类型
+
+# ---------------------------------------------------------------------------- #
+#                         处理器类型                                     
+# ---------------------------------------------------------------------------- #
 # 如果为 gpu，共有以下几种选择：
 # 自动选择需要加上 ^ 符号，即 ^[GPU 数量]，如 ^2 表示自动选择 2 块显卡
 # 手动选择直接列出需要使用的显卡编号，如 0,1 表示使用 0 号和 1 号显卡
 processing_unit: ^1  # 必需
 # 是否排队等待处理器
-queuing: False  # 必需
+queuing: True  # 必需
 # 选择的处理器最小空闲显存，单位为 GB
 processing_unit_min_free_memory: 2
 # 选择的处理器最小空闲显存比例
 processing_unit_min_free_memory_ratio: 0.1
 # 处理器选择，程序自动填充，不需要手动填写
 # 其中，gpu-x-y 表示 x 表示是否手动选择（m：手动，a：自动），y 为显卡数量（m：多卡，s:单卡）
-processing_unit_type:  # cpu, gpu-m-m, gpu-m-s, gpu-a-m, gpu-a-s, ......
+processing_unit_type:  # 系统自动填充，cpu, gpu-m-m, gpu-m-s, gpu-a-m, gpu-a-s, ......
 
 
 # ---------------------------------------------------------------------------- #
@@ -40,6 +43,9 @@ task_id:
 # 对实验的描述
 memo: No task description.
 
+# 实验阶段，debug、train、finutune、....
+stage: debug
+
 # 是否开启 Comet.ml 实验记录
 start_comet_log: False
 # Comet 项目名称
@@ -48,6 +54,7 @@ comet_project_name: ProjectExample
 comet_exp_name: example
 # 自定义进程名
 proc_title: ${comet_exp_name}
+
 
 
 
@@ -69,44 +76,75 @@ test_data_file:
 train_batch_size: 8
 val_batch_size: 8
 test_batch_size: 8
-dataset_module_file: dataset.xxx
-dataset_collator_function_file: dataset.xxx
+dataset_module_file: projects.modules.dataset.xxx
+dataset_collator_function_file: projects.modules.dataset.xxx
 
+model_name_or_path:   # Huggingface 权重地址
+ckpt_path:  # 本地权重地址，当 stage = finetune 时加载此权重
+lora_path: ${ckpt_path}  # Lora 权重地址，默认与 ckpt_path 相同
+lit_model_file: projects.modules.model.xxx
 
 
 # ---------------------------------------------------------------------------- #
 #                                  训练参数                                     
 # ---------------------------------------------------------------------------- #
 seed: 3407
-max_epochs: 1
+fast_dev_run: False
+
+# Trainer 类型， 支持 Huggingface 和 Lightning 框架
+trainer_type: lit
+
+use_qlora: True
+lora_rank: 64
+lora_alpha: 16
+lora_dropout: 0.05
+merge_lora: True  # 是否在训练完成后合并权重
+
+max_epochs: 5
 accumulate_grad_batches: 2
-lr: 1e-5
+lr: 2e-4
 lr_scheduler: linear
+save_top_k: 1
 
+gradient_clip_val: 0.3
 
-# ---------------------------------------------------------------------------- #
-#                                    保存                                     
-# ---------------------------------------------------------------------------- #
-logging_steps: 300
-save_steps: 500
-save_total_limit: 1
-save_strategy: steps
 
 
 # ---------------------------------------------------------------------------- #
 #                        HuggingFace Trainer Args                                     
 # ---------------------------------------------------------------------------- #
+logging_steps: 300
+save_steps: 500
+save_total_limit: ${save_top_k}
+save_strategy: steps
+loss_func_file: projects.modules.loss.xxx
 hf_args:
   num_train_epochs: ${max_epochs}
   gradient_accumulation_steps: ${accumulate_grad_batches}
   learning_rate: ${lr}
   per_device_train_batch_size: ${train_batch_size}
+  max_grad_norm: ${gradient_clip_val}
 
 # ---------------------------------------------------------------------------- #
 #                         Lightning Trainer Args                                     
 # ---------------------------------------------------------------------------- #
+auto_lr_find: False
 lit_args:
   max_epochs: ${max_epochs}
   accumulate_grad_batches: ${accumulate_grad_batches}
   num_sanity_val_steps: 2
   default_root_dir: ${output_dir}
+  log_every_n_steps: 100
+  fast_dev_run: ${fast_dev_run}
+  gradient_clip_val: ${gradient_clip_val}
+
+
+# ---------------------------------------------------------------------------- #
+#                         Hydra 日志                                     
+# ---------------------------------------------------------------------------- #
+hydra:
+  run:
+    dir: ${root_dir}/outputs/hydra_configs
+  sweep:
+    dir: ${root_dir}/outputs/hydra_configs
+    subdir: ${task_id}

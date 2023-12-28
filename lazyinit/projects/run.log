@@ -1,0 +1,15 @@
+[2023-11-17 08:28:39,278][torch.distributed.nn.jit.instantiator][INFO] - Created a temporary directory at /tmp/tmpkk6zm2k2
+[2023-11-17 08:28:39,279][torch.distributed.nn.jit.instantiator][INFO] - Writing /tmp/tmpkk6zm2k2/_remote_module_non_scriptable.py
+[2023-11-17 09:16:37,901][torch.distributed.nn.jit.instantiator][INFO] - Created a temporary directory at /tmp/tmpfgv0sx5g
+[2023-11-17 09:16:37,902][torch.distributed.nn.jit.instantiator][INFO] - Writing /tmp/tmpfgv0sx5g/_remote_module_non_scriptable.py
+[2023-11-21 16:02:25,994][torch.distributed.nn.jit.instantiator][INFO] - Created a temporary directory at /tmp/tmpm1z9e5zm
+[2023-11-21 16:02:26,047][torch.distributed.nn.jit.instantiator][INFO] - Writing /tmp/tmpm1z9e5zm/_remote_module_non_scriptable.py
+[2023-11-21 16:09:12,766][lazydl.utils.trainer][INFO] - Model and tokenizer have saved to /home/dengyf/projects/outputs/psychology_chatglm2_202311211558285344082378431678367522/lora_weights
+[2023-11-21 18:16:49,319][torch.distributed.nn.jit.instantiator][INFO] - Created a temporary directory at /tmp/tmp_nitl7qk
+[2023-11-21 18:16:49,337][torch.distributed.nn.jit.instantiator][INFO] - Writing /tmp/tmp_nitl7qk/_remote_module_non_scriptable.py
+[2023-11-21 18:22:08,711][lazydl.utils.trainer][INFO] - Model and tokenizer have saved to /home/dengyf/projects/outputs/psychology_chatglm2_2023112118131881388240464261134317807/lora_weights
+[2023-12-16 22:20:51,404][torch.distributed.nn.jit.instantiator][INFO] - Created a temporary directory at /tmp/tmpzex52_fw
+[2023-12-16 22:20:51,426][torch.distributed.nn.jit.instantiator][INFO] - Writing /tmp/tmpzex52_fw/_remote_module_non_scriptable.py
+[2023-12-17 02:12:45,220][lazydl.utils.trainer][INFO] - Model and tokenizer have saved to /home/dengyf/projects/outputs/Personal_2023121622195458583533723702121089829/lora_weights
+[2023-12-17 15:35:11,405][torch.distributed.nn.jit.instantiator][INFO] - Created a temporary directory at /tmp/tmp8ydgzf_e
+[2023-12-17 15:35:11,443][torch.distributed.nn.jit.instantiator][INFO] - Writing /tmp/tmp8ydgzf_e/_remote_module_non_scriptable.py

@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='lazyinit',
-    version='0.0.71',
+    version='0.1.4',
     author='deng1fan',
     author_email='dengyifan@iie.ac.cn',
     url='https://github.com/deng1fan',
@@ -19,6 +19,7 @@ setup(
         'rich',
         'pyyaml',
         'nvitop',
+        'lazydl',
     ],
     exclude=["*.tests", "*.tests.*", "tests"],
     include_package_data=True,
@@ -26,9 +27,8 @@ setup(
     entry_points = {
         'console_scripts' : [
             # 这一行是安装到命令行运行的关键
-            'ini = lazyinit.init:init',
+            'ddd = lazyinit.ddd:ddd',
             'run = lazyinit.run:run',
-            'lazy = lazyinit.lazy:lazy'
         ]
     }
 )

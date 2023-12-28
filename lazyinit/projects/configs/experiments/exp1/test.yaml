@@ -1,0 +1,41 @@
+# @package _global_
+
+# ---------------------------------------------------------------------------- #
+#                         任务标识、描述、Comet 设置等                                      
+# ---------------------------------------------------------------------------- #
+memo: vicuna 在 faithdial 数据集上的表现，使用默认的 prompt
+
+# 是否开启 Comet.ml 实验记录
+# start_comet_log: True
+comet_project_name: Personal
+comet_exp_name: vicuna-faithdial-default
+stage: test  # debug、train、finetune、test
+
+
+# ---------------------------------------------------------------------------- #
+#                               数据、模型加载                               
+# ---------------------------------------------------------------------------- #
+model_name_or_path: meta-llama/Llama-2-7b-chat-hf # meta-llama/Llama-2-7b-chat-hf   lmsys/vicuna-7b-v1.5
+test_data_file: ${root_dir}/data/faithdial/test_random_split.json
+dataset_module_file: projects.modules.faith_dial.data_processor.FaithDialProcessor
+
+test_batch_size: 1
+
+
+# ---------------------------------------------------------------------------- #
+#                                  训练参数                                     
+# ---------------------------------------------------------------------------- #
+max_uer_input_length: 1024
+max_target_length: 1024
+
+use_qlora: False
+
+
+eval_metrics:
+  - sacrebleu_sent
+  - sacrebleu_corpus
+  - dist
+  - rouge
+
+
+
